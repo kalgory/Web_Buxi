@@ -1,5 +1,8 @@
 # buxi-client
 
+## [buxi-server](https://github.com/kalgory/Web_Buxi-Server)
+github server repo
+
 ## Project setup
 ```
 npm install

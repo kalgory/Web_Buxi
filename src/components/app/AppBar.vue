@@ -18,11 +18,10 @@
     <v-btn
       v-show="!isAuthLoading"
       color="primary"
-      target="_blank"
       @click="signOut"
     >
       <span class="mr-2">Sign Out</span>
-      <v-icon>mdi-open-in-new</v-icon>
+      <v-icon>mdi-logout-variant</v-icon>
     </v-btn>
   </v-app-bar>
 </template>

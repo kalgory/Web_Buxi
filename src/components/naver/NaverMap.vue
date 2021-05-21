@@ -1,7 +1,6 @@
 <template>
   <div
     id="map"
-    :style="mapStyle"
     @click="getClickPosition"
   />
 </template>
@@ -47,7 +46,7 @@ export default {
       /* global naver */
       const script = document.createElement('script');
       const type = 'text/javascript';
-      const src = 'https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=pqbywqev5y';
+      const src = 'https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=s4ygn6mjbi';
       script.setAttribute('async', '');
       script.setAttribute('defer', '');
       script.setAttribute('type', type);
@@ -97,14 +96,19 @@ export default {
         stationNumber: option.stop_no,
       });
       marker.setMap(this.map);
-      window.naver.maps.Event.addListener(marker, 'click', () => {
-        this.$emit('markerClick', marker);
-      });
     },
 
     setMarker(option) {
       // eslint-disable-next-line no-unused-expressions
       window.naver ? this.initMarker(option) : this.$on('load', () => this.initMarker(option));
+    },
+
+    setMarkerClickHandler() {
+      this.markers.forEach((marker) => {
+        window.naver.maps.Event.addListener(marker, 'click', () => {
+          this.$emit('markerClick', marker);
+        });
+      });
     },
   },
 };

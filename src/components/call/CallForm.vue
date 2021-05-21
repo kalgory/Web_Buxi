@@ -56,14 +56,14 @@ export default {
       departStop: '',
       arriveStop: '',
     },
-    boardingTime: 0,
+    boardingTime: '',
   }),
 
   computed: {
     valid() {
       return this.busStop.departStop.length > 0
           && this.busStop.arriveStop.length > 0
-          && this.boardingTime !== 0;
+          && this.boardingTime !== '';
     },
   },
 

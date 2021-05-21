@@ -59,7 +59,7 @@ export default {
       required: true,
     },
     time: {
-      type: Number,
+      type: String,
       required: true,
     },
   },

@@ -3,8 +3,7 @@
     id="map"
     :style="mapStyle"
     @click="getClickPosition"
-  >
-  </div>
+  />
 </template>
 
 <script>
@@ -86,16 +85,27 @@ export default {
       this.hasClickEvent = true;
     },
 
-    initMarker(position) {
+    initMarker(option) {
       const marker = new window.naver.maps.Marker({
         map: this.map,
-        position: new window.naver.maps.LatLng(position.lat, position.lng),
+        position: new window.naver.maps.LatLng(option.lat, option.lng),
         clickable: true,
       });
-      this.markers.push(marker);
-      console.log(this.markers);
+      this.markers.push({
+        marker,
+        stationName: option.stop_nm,
+        stationNumber: option.stop_no,
+      });
+      marker.setMap(this.map);
+      window.naver.maps.Event.addListener(marker, 'click', () => {
+        this.$emit('markerClick', marker);
+      });
     },
 
+    setMarker(option) {
+      // eslint-disable-next-line no-unused-expressions
+      window.naver ? this.initMarker(option) : this.$on('load', () => this.initMarker(option));
+    },
   },
 };
 </script>

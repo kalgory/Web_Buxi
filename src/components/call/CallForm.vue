@@ -1,88 +1,114 @@
 <template>
-  <v-form
-    class="pa-5"
-    @submit.prevent="submit"
-  >
-    <slot
-      name="busStopName"
-      :busStop="busStop"
-    />
-    <v-text-field
-      v-model="busStop.departStop"
-      hint="출발 정류장"
-      placeholder="출발 정류장을 선택해주세요"
-      disabled
-    />
-    <v-btn
-      @click="setDepartStop"
-    >
-      출발지 설정
-    </v-btn>
-    <v-text-field
-      v-model="busStop.arriveStop"
-      hint="도착 정류장"
-      placeholder="도착 정류장을 선택해주세요"
-      disabled
-    />
-    <v-btn
-      @click="setArriveStop"
-    >
-      도착지 설정
-    </v-btn>
-    <v-text-field
-      v-model="boardingTime"
-      hint="탑승 시간"
-      type="time"
-    />
-    <form-dialog
-      v-if="valid"
-      :arrive-stop="busStop.arriveStop"
-      :depart-stop="busStop.departStop"
-      :time="boardingTime"
-    />
+  <v-form @submit.prevent="submit">
+    <v-container>
+      <v-row no-gutters>
+        <v-col cols="7">
+          <v-text-field
+            v-model="departureStop"
+            placeholder="출발 정류장"
+            disabled
+          />
+        </v-col>
+        <v-col offset="1">
+          <v-btn
+            block
+            class="mt-4"
+            color="primary"
+            @click="setDepartStop"
+          >
+            선택
+          </v-btn>
+        </v-col>
+      </v-row>
+      <v-row
+        no-gutters
+        class="mt-n1"
+      >
+        <v-col cols="7">
+          <v-text-field
+            v-model="arrivalStop"
+            placeholder="도착 정류장"
+            disabled
+          />
+        </v-col>
+        <v-col offset="1">
+          <v-btn
+            block
+            class="mt-4"
+            color="primary"
+            @click="setArriveStop"
+          >
+            선택
+          </v-btn>
+        </v-col>
+      </v-row>
+      <v-row no-gutters>
+        <v-col>
+          <v-slider
+            v-model="waitingTime"
+            class="mt-6"
+            label="몇분뒤?"
+            thumb-label="always"
+            max="20"
+            min="0"
+          />
+        </v-col>
+      </v-row>
+      <v-row no-gutters>
+        <v-col>
+          <v-btn
+            type="submit"
+            block
+            color="primary"
+            :disabled="!isValid"
+          >
+            버스 호출
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-container>
   </v-form>
 </template>
 
 <script>
-import FormDialog from '@/components/call/form/FormDialog.vue';
+import PositionEventBus from '../../event/position';
 
 export default {
   name: 'CallForm',
 
-  components: { FormDialog },
-
   data: () => ({
-    busStop: {
-      departStop: '',
-      arriveStop: '',
-    },
-    boardingTime: '',
+    departureStop: '',
+    arrivalStop: '',
+    waitingTime: 0,
   }),
 
   computed: {
-    valid() {
-      return this.busStop.departStop.length > 0
-          && this.busStop.arriveStop.length > 0
-          && this.boardingTime !== '';
+    isValid() {
+      return this.departureStop.length > 0 && this.arrivalStop.length > 0;
     },
+  },
+
+  created() {
+    PositionEventBus.$on('responsePosition', (payload) => {
+      console.log(payload);
+    });
   },
 
   methods: {
     submit() {
-
+      console.log(this.arrivalStop);
+      console.log(this.departureStop);
     },
 
     setArriveStop() {
-      this.busStop.arriveStop = 'test';
+      PositionEventBus.$emit('requestPosition', 'arrivalStop');
+      this.arrivalStop = 'test';
     },
 
     setDepartStop() {
-      this.busStop.departStop = 'test2';
+      PositionEventBus.$emit('requestPosition', 'departureStop');
+      this.departureStop = 'test2';
     },
   },
 };
 </script>
-
-<style scoped>
-
-</style>

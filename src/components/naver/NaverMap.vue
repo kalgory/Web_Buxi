@@ -1,6 +1,7 @@
 <template>
   <div
     id="map"
+    @click="getClickPosition"
   />
 </template>
 
@@ -9,11 +10,6 @@ export default {
   name: 'NaverMap',
 
   props: {
-    mapStyle: {
-      type: String,
-      required: false,
-      default: 'width:100%;height:400px;',
-    },
     zoom: {
       type: Number,
       required: false,
@@ -39,12 +35,6 @@ export default {
   mounted() {
     // eslint-disable-next-line no-unused-expressions
     window.naver ? this.initMap() : this.naverMapApiScript();
-  },
-
-  watch: {
-    isClickLoading(value) {
-      console.log('change!', value);
-    },
   },
 
   methods: {
@@ -110,7 +100,6 @@ export default {
     },
 
     setMarker(option) {
-      console.log('여기는? ', option);
       // eslint-disable-next-line no-unused-expressions
       window.naver ? this.initMarker(option) : this.$on('load', () => this.initMarker(option));
     },

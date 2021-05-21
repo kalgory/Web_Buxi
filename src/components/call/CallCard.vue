@@ -3,6 +3,7 @@
     width="600"
   >
     <call-form />
+    <v-card-actions />
   </v-card>
 </template>
 

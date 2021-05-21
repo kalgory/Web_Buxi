@@ -18,8 +18,6 @@
       </v-container>
       <router-view v-else />
     </v-main>
-    {{ isAuthLoading }}
-    {{ isAuthenticated }}
   </v-app>
 </template>
 

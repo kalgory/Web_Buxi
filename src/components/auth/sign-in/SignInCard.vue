@@ -1,17 +1,30 @@
 <template>
   <v-card :loading="isAuthLoading">
     <v-card-title>
-      Sign in to Buxi
+      <v-container>
+        <v-row justify="center">
+          <v-col cols="auto">
+            Sign in to Buxi
+          </v-col>
+        </v-row>
+      </v-container>
     </v-card-title>
     <v-card-text>
       <v-container>
         <v-row align="center">
           <v-col>
             <v-btn
+              fab
               block
+              outlined
+              width="96"
+              height="124"
               @click="signInWithGoogle"
             >
-              Google
+              <v-img
+                max-width="46"
+                src="../../../assets/google.png"
+              />
             </v-btn>
           </v-col>
         </v-row>

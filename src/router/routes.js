@@ -21,17 +21,17 @@ export default [
   {
     name: '404',
     path: '*',
+    component: Base404,
     meta: {
       title: '',
       isRequireAuth: false,
       isAppbarShow: false,
     },
-    component: Base404,
   },
   {
     name: 'root',
     path: '/',
-    redirect: '/signin',
+    redirect: '/auth/signin',
     meta: {
       title: '',
       isRequireAuth: false,
@@ -49,20 +49,20 @@ export default [
       {
         name: 'call default',
         path: '',
+        component: CallDefault,
         meta: {
           title: 'Default',
           isRequireAuth: true,
         },
-        component: CallDefault,
       },
       {
         name: 'call apply',
         path: '/apply',
+        component: CallApply,
         meta: {
           title: 'call apply',
           isRequireAuth: true,
         },
-        component: CallApply,
       },
     ],
   },
@@ -78,17 +78,18 @@ export default [
       {
         name: 'payment default',
         path: '',
+        component: PaymentDefault,
         meta: {
           title: 'Default',
           isRequireAuth: true,
         },
-        component: PaymentDefault,
       },
     ],
   },
   {
     name: 'auth',
     path: '/auth',
+    component: BaseAuth,
     meta: {
       title: 'Auth',
       isRequireAuth: false,
@@ -104,17 +105,16 @@ export default [
         },
       },
     ],
-    component: BaseAuth,
   },
   {
     name: 'user',
     path: '/user',
+    component: BaseUser,
     redirect: '/user/me',
     meta: {
       title: 'User',
       isRequireAuth: true,
     },
-    component: BaseUser,
     children: [
       {
         name: 'myProfile',

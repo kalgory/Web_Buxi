@@ -20,7 +20,10 @@
           </v-btn>
         </v-col>
       </v-row>
-      <v-row no-gutters>
+      <v-row
+        no-gutters
+        class="mt-n1"
+      >
         <v-col cols="7">
           <v-text-field
             v-model="arrivalStop"
@@ -54,6 +57,7 @@
       <v-row no-gutters>
         <v-col>
           <v-btn
+            type="submit"
             block
             color="primary"
             :disabled="!isValid"
@@ -63,25 +67,12 @@
         </v-col>
       </v-row>
     </v-container>
-
-    <form-dialog
-      v-if="false"
-      :arrive-stop="arrivalStop"
-      :depart-stop="departureStop"
-      :time="waitingTime"
-    />
   </v-form>
 </template>
 
 <script>
-import FormDialog from '@/components/call/form/FormDialog.vue';
-
 export default {
   name: 'CallForm',
-
-  components: {
-    FormDialog,
-  },
 
   data: () => ({
     departureStop: '',
@@ -110,7 +101,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-
-</style>

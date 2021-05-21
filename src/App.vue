@@ -1,58 +1,78 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-
+    <app-bar v-show="$route.meta.isAppBarShow" />
     <v-main>
-      <router-view/>
+      <v-container
+        v-if="isLoading"
+        fill-height
+      >
+        <v-row justify="center">
+          <v-col cols="auto">
+            <v-progress-circular
+              indeterminate
+              size="128"
+              color="primary"
+            />
+          </v-col>
+        </v-row>
+      </v-container>
+      <router-view v-else />
     </v-main>
+    {{ isAuthLoading }}
+    {{ isAuthenticated }}
   </v-app>
 </template>
 
 <script>
+import Firebase from 'firebase/app';
+import AppBar from '@/components/app/AppBar.vue';
 
 export default {
   name: 'App',
 
+  components: {
+    AppBar,
+  },
+
   data: () => ({
-    //
+    isLoading: true,
   }),
 
+  computed: {
+    isAuthLoading() {
+      return this.$store.getters.getIsAuthLoading;
+    },
+    isAuthenticated() {
+      return this.$store.getters.getIsAuthenticated;
+    },
+  },
+
+  watch: {
+    isAuthLoading(value) {
+      if (!value) {
+        if (!this.isAuthenticated) {
+          this.$router.push('/auth/signin');
+        }
+      }
+      this.isLoading = false;
+    },
+  },
+
   created() {
+    this.onAuthStateChanged();
+  },
+
+  methods: {
+    onAuthStateChanged() {
+      Firebase.auth().onAuthStateChanged((user) => {
+        this.$store.commit('setIsAuthLoading', false);
+        if (user) {
+          this.$store.commit('setIsAuthenticated', true);
+        } else {
+          this.$store.commit('setIsAuthenticated', false);
+        }
+      });
+    },
   },
 };
 </script>

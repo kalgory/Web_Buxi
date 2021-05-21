@@ -10,7 +10,7 @@
           alt="Vuetify Logo"
           class="shrink mr-2"
           contain
-          src="https://firebasestorage.googleapis.com/v0/b/buxi-14dd3.appspot.com/o/logo.png?alt=media&token=adc6e5d5-569c-425e-8e04-f5624ab4f82e"
+          src="https://firebasestorage.googleapis.com/v0/b/buxi-14dd3.appspot.com/o/logo.png?alt=media&token=7f3267db-547c-4f27-84be-d84d03e7abf1"
           transition="scale-transition"
           width="80"
         />

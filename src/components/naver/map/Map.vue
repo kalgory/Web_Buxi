@@ -1,7 +1,8 @@
 <template>
-  <div>
-    <div id="map" style="width:100%;height:400px;"></div>
-  </div>
+  <div
+    id="map"
+    :style="mapStyle"
+  />
 </template>
 
 <script>
@@ -12,7 +13,8 @@ export default {
   props: {
     mapStyle: {
       type: String,
-      required: true,
+      required: false,
+      default: 'width:100%;height:400px;',
     },
     zoom: {
       type: Number,
@@ -22,15 +24,20 @@ export default {
     centerPosition: {
       type: Object,
       required: false,
-      default: function () {
-        return {lat: 37.54764772691377};
-      },
+      default: () => ({
+        lat: 37.54764772691377, lng: 127.0708046173278,
+      }),
     },
   },
 
   data: () => ({
     map: null,
   }),
+
+  mounted() {
+    // eslint-disable-next-line no-unused-expressions
+    window.naver ? this.initMap() : this.test();
+  },
 
   methods: {
     test() {
@@ -49,18 +56,10 @@ export default {
     initMap() {
       const container = document.getElementById('map');
       this.map = new naver.maps.Map(container, {
-        center: new naver.maps.LatLng(37.3595704, 127.105399),
+        center: new naver.maps.LatLng(this.centerPosition.lat, this.centerPosition.lng),
         zoom: this.zoom,
       });
     },
-  },
-
-  mounted() {
-    if (window.naver) {
-      this.initMap();
-    } else {
-      this.test();
-    }
   },
 };
 </script>

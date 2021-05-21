@@ -50,7 +50,7 @@ export default {
   margin: 5% auto;
   left: 0;
   right: 0;
-  bottom: 30px;
+  bottom: 8px;
   /*background-color: rgba(0,0,0,0.5);*/
 }
 </style>

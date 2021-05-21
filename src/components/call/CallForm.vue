@@ -71,6 +71,8 @@
 </template>
 
 <script>
+import PositionEventBus from '../../event/position';
+
 export default {
   name: 'CallForm',
 
@@ -86,16 +88,25 @@ export default {
     },
   },
 
+  created() {
+    PositionEventBus.$on('responsePosition', (payload) => {
+      console.log(payload);
+    });
+  },
+
   methods: {
     submit() {
-
+      console.log(this.arrivalStop);
+      console.log(this.departureStop);
     },
 
     setArriveStop() {
+      PositionEventBus.$emit('requestPosition', 'arrivalStop');
       this.arrivalStop = 'test';
     },
 
     setDepartStop() {
+      PositionEventBus.$emit('requestPosition', 'departureStop');
       this.departureStop = 'test2';
     },
   },

@@ -7,32 +7,49 @@
       name="busStopName"
       :busStop="busStop"
     />
-    <v-text-field
-      v-model="busStop.departStop"
-      hint="출발 정류장"
-      placeholder="출발 정류장을 선택해주세요"
-      disabled
-    />
-    <v-btn
-      @click="setDepartStop"
-    >
-      출발지 설정
-    </v-btn>
-    <v-text-field
-      v-model="busStop.arriveStop"
-      hint="도착 정류장"
-      placeholder="도착 정류장을 선택해주세요"
-      disabled
-    />
-    <v-btn
-      @click="setArriveStop"
-    >
-      도착지 설정
-    </v-btn>
+    <v-row>
+      <v-col cols="auto">
+        <v-text-field
+          v-model="busStop.departStop"
+          hint="출발 정류장"
+          placeholder="정류장 선택"
+          disabled
+        />
+      </v-col>
+      <v-col />
+      <v-col>
+        <v-btn
+          class="mt-4"
+          @click="setDepartStop"
+        >
+          출발
+        </v-btn>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="auto">
+        <v-text-field
+          v-model="busStop.arriveStop"
+          hint="도착 정류장"
+          placeholder="정류장 선택"
+          disabled
+        />
+      </v-col>
+      <v-col />
+      <v-col>
+        <v-btn
+          class="mt-4"
+          @click="setArriveStop"
+        >
+          도착
+        </v-btn>
+      </v-col>
+    </v-row>
+
     <v-text-field
       v-model="boardingTime"
       hint="탑승 시간"
-      type="time"
+      type="number"
     />
     <form-dialog
       v-if="valid"
@@ -56,14 +73,14 @@ export default {
       departStop: '',
       arriveStop: '',
     },
-    boardingTime: '',
+    boardingTime: 5,
   }),
 
   computed: {
     valid() {
       return this.busStop.departStop.length > 0
           && this.busStop.arriveStop.length > 0
-          && this.boardingTime !== '';
+          && this.boardingTime >= 0;
     },
   },
 

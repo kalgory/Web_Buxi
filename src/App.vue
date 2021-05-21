@@ -1,7 +1,7 @@
 <template>
   <v-app>
-    <app-bar v-show="$route.meta.isAppBarShow" />
-    <v-main>
+    <app-bar v-if="$route.meta.isAppBarShow" />
+    <v-main class="primary">
       <v-container
         v-if="isLoading"
         fill-height
@@ -49,7 +49,9 @@ export default {
     isAuthLoading(value) {
       if (!value) {
         if (!this.isAuthenticated) {
-          this.$router.push('/auth/signin');
+          if (this.$route.name !== 'sign in') {
+            this.$router.push('/auth/signin');
+          }
         }
       }
       this.isLoading = false;

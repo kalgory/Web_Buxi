@@ -22,8 +22,8 @@ export default {
   },
 
   watch: {
-    isAuthLoading(value) {
-      if (!value && this.isAuthenticated) {
+    isAuthenticated(value) {
+      if (value) {
         this.$router.push('/call');
       }
     },
@@ -31,7 +31,9 @@ export default {
 
   created() {
     if (this.isAuthenticated) {
-      this.$router.push('/call');
+      if (this.$route.name !== 'sign in') {
+        this.$router.push('/auth/signin');
+      }
     }
   },
 };

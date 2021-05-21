@@ -9,14 +9,12 @@
         alt="Vuetify Logo"
         class="shrink mr-2"
         contain
-        src="https://firebasestorage.googleapis.com/v0/b/buxi-14dd3.appspot.com/o/logo.png?alt=media&token=7f3267db-547c-4f27-84be-d84d03e7abf1"
+        src="https://firebasestorage.googleapis.com/v0/b/buxi-14dd3.appspot.com/o/logo.png?alt=media&token=dfae23be-0353-4bea-973e-2d3d6adc4487"
         transition="scale-transition"
         width="80"
       />
     </div>
-
     <v-spacer />
-
     <v-btn
       v-show="!isAuthLoading"
       color="primary"

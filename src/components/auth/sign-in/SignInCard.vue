@@ -4,7 +4,10 @@
       <v-container>
         <v-row justify="center">
           <v-col cols="auto">
-            Sign in to Buxi
+            <v-img
+              max-width="300"
+              src="https://firebasestorage.googleapis.com/v0/b/buxi-14dd3.appspot.com/o/logo-color.png?alt=media&token=d2ea7cf3-794a-4af3-80b2-96e9cb95c878"
+            />
           </v-col>
         </v-row>
       </v-container>
@@ -14,16 +17,14 @@
         <v-row align="center">
           <v-col>
             <v-btn
-              fab
               block
-              outlined
+              plain
               width="96"
-              height="124"
               @click="signInWithGoogle"
             >
               <v-img
-                max-width="46"
-                src="../../../assets/google.png"
+                max-width="250"
+                src="../../../assets/btn-google-signin.png"
               />
             </v-btn>
           </v-col>

@@ -102,12 +102,12 @@ export default {
 
     setArriveStop() {
       PositionEventBus.$emit('requestPosition', 'arrivalStop');
-      this.arrivalStop = 'test';
+      this.arrivalStop = '화양리';
     },
 
     setDepartStop() {
       PositionEventBus.$emit('requestPosition', 'departureStop');
-      this.departureStop = 'test2';
+      this.departureStop = '건대입구사거리';
     },
   },
 };

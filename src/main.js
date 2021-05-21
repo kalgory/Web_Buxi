@@ -8,6 +8,8 @@ import Store from './store';
 import Vuetify from './plugins/vuetify';
 
 Vue.config.productionTip = false;
+Vue.prototype.$clientID = 's4ygn6mjbi';
+Vue.prototype.$httpURL = 'https://35.232.144.196:3000';
 
 new Vue({
   router: Router,

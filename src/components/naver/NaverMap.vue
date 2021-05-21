@@ -41,6 +41,12 @@ export default {
     window.naver ? this.initMap() : this.naverMapApiScript();
   },
 
+  watch: {
+    isClickLoading(value) {
+      console.log('change!', value);
+    },
+  },
+
   methods: {
     naverMapApiScript() {
       /* global naver */
@@ -68,25 +74,26 @@ export default {
 
     clickEventListener() {
       window.naver.maps.Event.addListener(this.map, 'click', (position) => {
-        this.isClickLoading = true;
         if (this.hasClickEvent) {
-          console.log('hey', position);
+          this.isClickLoading = true;
           this.$emit('click', position.coord);
           this.hasClickEvent = false;
           this.$emit('clickLoading');
+          this.isClickLoading = false;
         }
       });
     },
 
     setHasClickEvent() {
+      console.log(this.hasClickEvent, '&', this.isClickLoading);
       if (!this.isClickLoading) {
         this.hasClickEvent = true;
       } else {
         this.$on('clickLoading', () => {
           this.hasClickEvent = true;
-          this.isClickLoading = false;
         });
       }
+      console.log(this.hasClickEvent);
     },
 
     initMarker(option) {
@@ -95,25 +102,24 @@ export default {
         position: new window.naver.maps.LatLng(option.lat, option.lng),
         clickable: true,
       });
-      this.markers.push({
-        marker,
-        stationName: option.stop_nm,
-        stationNumber: option.stop_no,
-      });
       marker.setMap(this.map);
+      this.markers.push(marker);
+      window.naver.maps.Event.addListener(marker, 'click', () => {
+        this.$emit('markerClick', option);
+      });
     },
 
     setMarker(option) {
+      console.log('여기는? ', option);
       // eslint-disable-next-line no-unused-expressions
       window.naver ? this.initMarker(option) : this.$on('load', () => this.initMarker(option));
     },
 
-    setMarkerClickHandler() {
+    removeMarkers() {
       this.markers.forEach((marker) => {
-        window.naver.maps.Event.addListener(marker, 'click', () => {
-          this.$emit('markerClick', marker);
-        });
+        marker.setMap(null);
       });
+      this.setHasClickEvent();
     },
   },
 };

@@ -2,10 +2,6 @@
   <v-app>
     <app-bar v-show="$route.meta.isAppBarShow" />
     <v-main>
-      <v-progress-linear
-        v-if="isLoading"
-        indeterminate
-      />
       <v-container
         v-if="isLoading"
         fill-height

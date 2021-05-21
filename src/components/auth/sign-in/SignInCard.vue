@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card :loading="isAuthLoading">
     <v-card-title>
       Sign in to Buxi
     </v-card-title>
@@ -25,6 +25,12 @@ import Firebase from 'firebase/app';
 
 export default {
   name: 'SignInCard',
+
+  computed: {
+    isAuthLoading() {
+      return this.$store.getters.getIsAuthLoading;
+    },
+  },
 
   methods: {
     signInWithGoogle() {

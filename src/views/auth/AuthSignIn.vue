@@ -23,13 +23,16 @@ export default {
 
   watch: {
     isAuthLoading(value) {
-      console.log('isAuthLoading changed', value);
-      if (value) {
-        if (this.isAuthenticated) {
-          this.$router.push('/');
-        }
+      if (!value && this.isAuthenticated) {
+        this.$router.push('/call');
       }
     },
+  },
+
+  created() {
+    if (this.isAuthenticated) {
+      this.$router.push('/call');
+    }
   },
 };
 </script>

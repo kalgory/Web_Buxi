@@ -22,11 +22,17 @@ export default [
     name: '404',
     path: '*',
     component: Base404,
+    meta: {
+      isAppBarShow: true,
+    },
   },
   {
     name: 'root',
     path: '/',
-    redirect: '/auth/signin',
+    redirect: '/call',
+    meta: {
+      isAppBarShow: true,
+    },
   },
   {
     path: '/call',
@@ -36,11 +42,17 @@ export default [
         name: 'call default',
         path: '',
         component: CallDefault,
+        meta: {
+          isAppBarShow: true,
+        },
       },
       {
         name: 'call apply',
         path: '/apply',
         component: CallApply,
+        meta: {
+          isAppBarShow: true,
+        },
       },
     ],
   },
@@ -52,6 +64,9 @@ export default [
         name: 'payment default',
         path: '',
         component: PaymentDefault,
+        meta: {
+          isAppBarShow: true,
+        },
       },
     ],
   },
@@ -64,6 +79,9 @@ export default [
         name: 'sign in',
         path: 'signin',
         component: AuthSignIn,
+        meta: {
+          isAppBarShow: false,
+        },
       },
     ],
   },
@@ -77,6 +95,9 @@ export default [
         name: 'myProfile',
         path: 'me',
         component: UserProfile,
+        meta: {
+          isAppBarShow: true,
+        },
       },
     ],
   },

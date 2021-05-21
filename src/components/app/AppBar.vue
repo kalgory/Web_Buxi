@@ -18,6 +18,7 @@
     <v-spacer />
 
     <v-btn
+      v-show="!isAuthLoading"
       color="primary"
       target="_blank"
       @click="signOut"
@@ -34,6 +35,12 @@ import Firebase from 'firebase/app';
 export default {
   name: 'AppBar',
 
+  computed: {
+    isAuthLoading() {
+      return this.$store.getters.getIsAuthLoading;
+    },
+  },
+
   methods: {
     signOut() {
       this.$store.commit('setIsAuthLoading', true);
@@ -42,6 +49,9 @@ export default {
         })
         .catch((error) => {
           console.error(error);
+        })
+        .finally(() => {
+          this.$store.commit('setIsAuthLoading', false);
         });
     },
   },

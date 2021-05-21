@@ -2,7 +2,6 @@ export default {
   state: {
     isAuthLoading: true,
     isAuthenticated: false,
-    userUID: '',
   },
 
   getters: {
@@ -12,9 +11,6 @@ export default {
     getIsAuthenticated(state) {
       return state.isAuthenticated;
     },
-    getUserUID(state) {
-      return state.userUID;
-    },
   },
 
   mutations: {
@@ -23,9 +19,6 @@ export default {
     },
     setIsAuthenticated(state, value) {
       state.isAuthenticated = value;
-    },
-    setUserUID(state, value) {
-      state.userUID = value;
     },
   },
 };

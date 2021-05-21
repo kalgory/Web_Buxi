@@ -1,54 +1,80 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://firebasestorage.googleapis.com/v0/b/buxi-14dd3.appspot.com/o/logo.png?alt=media&token=7f3267db-547c-4f27-84be-d84d03e7abf1"
-          transition="scale-transition"
-          width="80"
-        />
-      </div>
-
-      <v-spacer />
-
-      <v-btn
-        color="primary"
-        target="_blank"
-        @click="getTest"
-      >
-        <span class="mr-2">Get test</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-
+    <app-bar v-show="$route.meta.isAppBarShow" />
     <v-main>
-      <router-view />
+      <v-progress-linear
+        v-if="isLoading"
+        indeterminate
+      />
+      <v-container
+        v-if="isLoading"
+        fill-height
+      >
+        <v-row justify="center">
+          <v-col cols="auto">
+            <v-progress-circular
+              indeterminate
+              size="128"
+              color="primary"
+            />
+          </v-col>
+        </v-row>
+      </v-container>
+      <router-view v-else />
     </v-main>
+    {{ isAuthLoading }}
+    {{ isAuthenticated }}
   </v-app>
 </template>
 
 <script>
-import axios from 'axios';
+import Firebase from 'firebase/app';
+import AppBar from '@/components/app/AppBar.vue';
 
 export default {
   name: 'App',
 
+  components: {
+    AppBar,
+  },
+
   data: () => ({
-    //
+    isLoading: true,
   }),
 
+  computed: {
+    isAuthLoading() {
+      return this.$store.getters.getIsAuthLoading;
+    },
+    isAuthenticated() {
+      return this.$store.getters.getIsAuthenticated;
+    },
+  },
+
+  watch: {
+    isAuthLoading(value) {
+      if (!value) {
+        if (!this.isAuthenticated) {
+          this.$router.push('/auth/signin');
+        }
+      }
+      this.isLoading = false;
+    },
+  },
+
+  created() {
+    this.onAuthStateChanged();
+  },
+
   methods: {
-    getTest() {
-      console.log(this.$hyunmin);
-      axios.get('http://35.232.144.196:3000/').then((res) => {
-        console.log(res);
+    onAuthStateChanged() {
+      Firebase.auth().onAuthStateChanged((user) => {
+        this.$store.commit('setIsAuthLoading', false);
+        if (user) {
+          this.$store.commit('setIsAuthenticated', true);
+        } else {
+          this.$store.commit('setIsAuthenticated', false);
+        }
       });
     },
   },

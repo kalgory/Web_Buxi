@@ -28,12 +28,18 @@ export default {
 
   methods: {
     signInWithGoogle() {
+      this.$store.commit('setIsAuthLoading', true);
       const provider = new Firebase.auth.GoogleAuthProvider();
-      Firebase.auth().signInWithPopup(provider).then((result) => {
-        console.log(result.user);
-      }).catch((error) => {
-        console.error(error);
-      });
+      Firebase.auth().signInWithPopup(provider)
+        .then((result) => {
+          console.log(result.user);
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+        .finally(() => {
+          this.$store.commit('setIsAuthLoading', false);
+        });
     },
   },
 };

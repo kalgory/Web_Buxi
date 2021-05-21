@@ -1,7 +1,6 @@
 <template>
   <div
     id="map"
-    @click="getClickPosition"
   />
 </template>
 
@@ -75,7 +74,6 @@ export default {
     },
 
     setHasClickEvent() {
-      console.log(this.hasClickEvent, '&', this.isClickLoading);
       if (!this.isClickLoading) {
         this.hasClickEvent = true;
       } else {
@@ -83,7 +81,6 @@ export default {
           this.hasClickEvent = true;
         });
       }
-      console.log(this.hasClickEvent);
     },
 
     initMarker(option) {

@@ -10,40 +10,32 @@
           alt="Vuetify Logo"
           class="shrink mr-2"
           contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+          src="https://firebasestorage.googleapis.com/v0/b/buxi-14dd3.appspot.com/o/logo.png?alt=media&token=adc6e5d5-569c-425e-8e04-f5624ab4f82e"
           transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
+          width="80"
         />
       </div>
 
-      <v-spacer></v-spacer>
+      <v-spacer />
 
       <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
+        color="primary"
         target="_blank"
-        text
+        @click="getTest"
       >
-        <span class="mr-2">Latest Release</span>
+        <span class="mr-2">Get test</span>
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
     </v-app-bar>
 
     <v-main>
-      <router-view/>
+      <router-view />
     </v-main>
   </v-app>
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
   name: 'App',
@@ -51,5 +43,14 @@ export default {
   data: () => ({
     //
   }),
+
+  methods: {
+    getTest() {
+      console.log(this.$hyunmin);
+      axios.get('http://35.232.144.196:3000/').then((res) => {
+        console.log(res);
+      });
+    },
+  },
 };
 </script>

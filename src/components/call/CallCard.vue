@@ -1,7 +1,5 @@
 <template>
-  <v-card
-    width="600"
-  >
+  <v-card>
     <call-form />
     <v-card-actions />
   </v-card>

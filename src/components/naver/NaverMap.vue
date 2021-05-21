@@ -1,7 +1,6 @@
 <template>
   <div
     id="map"
-    :style="mapStyle"
     @click="getClickPosition"
   />
 </template>
@@ -11,11 +10,6 @@ export default {
   name: 'NaverMap',
 
   props: {
-    mapStyle: {
-      type: String,
-      required: false,
-      default: 'width:100%;height:400px;',
-    },
     zoom: {
       type: Number,
       required: false,

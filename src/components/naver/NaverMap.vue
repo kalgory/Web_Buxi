@@ -1,7 +1,6 @@
 <template>
   <div
     id="map"
-    @click="getClickPosition"
   />
 </template>
 
@@ -34,6 +33,7 @@ export default {
     map: null,
     markers: [],
     hasClickEvent: true,
+    isClickLoading: false,
   }),
 
   mounted() {
@@ -63,25 +63,30 @@ export default {
         zoom: this.zoom,
       });
       this.$emit('load');
+      this.clickEventListener();
     },
 
     clickEventListener() {
-      const clickEvent = window.naver.maps.Event.addListener(this.map, 'click', (position) => {
-        window.naver.maps.Event.removeListener(clickEvent);
-        this.$emit('click', position.coord);
-        this.hasClickEvent = false;
+      window.naver.maps.Event.addListener(this.map, 'click', (position) => {
+        this.isClickLoading = true;
+        if (this.hasClickEvent) {
+          console.log('hey', position);
+          this.$emit('click', position.coord);
+          this.hasClickEvent = false;
+          this.$emit('clickLoading');
+        }
       });
     },
 
-    getClickPosition() {
-      if (this.hasClickEvent) {
-        // eslint-disable-next-line no-unused-expressions
-        window.naver ? this.clickEventListener() : this.$on('load', () => this.clickEventListener());
-      }
-    },
-
     setHasClickEvent() {
-      this.hasClickEvent = true;
+      if (!this.isClickLoading) {
+        this.hasClickEvent = true;
+      } else {
+        this.$on('clickLoading', () => {
+          this.hasClickEvent = true;
+          this.isClickLoading = false;
+        });
+      }
     },
 
     initMarker(option) {

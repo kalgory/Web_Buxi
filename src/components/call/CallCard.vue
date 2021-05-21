@@ -1,7 +1,8 @@
 <template>
   <v-card>
-    <call-form />
-    <v-card-actions />
+    <v-card-text>
+      <call-form />
+    </v-card-text>
   </v-card>
 </template>
 
@@ -9,7 +10,10 @@
 import CallForm from '@/components/call/CallForm.vue';
 
 export default {
-  components: { CallForm },
+  components: {
+    CallForm,
+  },
+
   data: () => ({
   }),
 };

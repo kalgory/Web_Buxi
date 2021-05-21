@@ -1,14 +1,10 @@
 <template>
-  <Map></Map>
+  <div></div>
 </template>
 
 <script>
-import Map from '@/components/naver/map/Map.vue';
 
 export default {
   name: 'Home',
-  components: {
-    Map,
-  },
 };
 </script>

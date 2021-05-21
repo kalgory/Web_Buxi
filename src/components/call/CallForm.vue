@@ -4,9 +4,8 @@
       <v-row no-gutters>
         <v-col cols="7">
           <v-text-field
-            v-model="busStop.departStop"
-            hint="출발 정류장"
-            placeholder="정류장 선택"
+            v-model="departureStop"
+            placeholder="출발 정류장"
             disabled
           />
         </v-col>
@@ -14,18 +13,18 @@
           <v-btn
             block
             class="mt-4"
+            color="primary"
             @click="setDepartStop"
           >
-            출발
+            선택
           </v-btn>
         </v-col>
       </v-row>
       <v-row no-gutters>
         <v-col cols="7">
           <v-text-field
-            v-model="busStop.arriveStop"
-            hint="도착 정류장"
-            placeholder="정류장 선택"
+            v-model="arrivalStop"
+            placeholder="도착 정류장"
             disabled
           />
         </v-col>
@@ -33,18 +32,22 @@
           <v-btn
             block
             class="mt-4"
+            color="primary"
             @click="setArriveStop"
           >
-            도착
+            선택
           </v-btn>
         </v-col>
       </v-row>
       <v-row no-gutters>
         <v-col>
-          <v-text-field
-            v-model="boardingTime"
-            hint="탑승 시간"
-            type="number"
+          <v-slider
+            v-model="waitingTime"
+            class="mt-6"
+            label="몇분뒤?"
+            thumb-label="always"
+            max="20"
+            min="0"
           />
         </v-col>
       </v-row>
@@ -53,7 +56,7 @@
           <v-btn
             block
             color="primary"
-            disabled
+            :disabled="!isValid"
           >
             버스 호출
           </v-btn>
@@ -62,10 +65,10 @@
     </v-container>
 
     <form-dialog
-      v-if="valid"
-      :arrive-stop="busStop.arriveStop"
-      :depart-stop="busStop.departStop"
-      :time="boardingTime"
+      v-if="false"
+      :arrive-stop="arrivalStop"
+      :depart-stop="departureStop"
+      :time="waitingTime"
     />
   </v-form>
 </template>
@@ -81,18 +84,14 @@ export default {
   },
 
   data: () => ({
-    busStop: {
-      departStop: '',
-      arriveStop: '',
-    },
-    boardingTime: 5,
+    departureStop: '',
+    arrivalStop: '',
+    waitingTime: 0,
   }),
 
   computed: {
-    valid() {
-      return this.busStop.departStop.length > 0
-          && this.busStop.arriveStop.length > 0
-          && this.boardingTime >= 0;
+    isValid() {
+      return this.departureStop.length > 0 && this.arrivalStop.length > 0;
     },
   },
 
@@ -102,11 +101,11 @@ export default {
     },
 
     setArriveStop() {
-      this.busStop.arriveStop = 'test';
+      this.arrivalStop = 'test';
     },
 
     setDepartStop() {
-      this.busStop.departStop = 'test2';
+      this.departureStop = 'test2';
     },
   },
 };

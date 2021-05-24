@@ -59,6 +59,16 @@ export default {
       });
       this.$emit('load');
       this.clickEventListener();
+      this.dragEndEventListener();
+    },
+
+    dragEndEventListener() {
+      window.naver.maps.Event.addListener(this.map, 'dragend', () => {
+        this.$emit('dragend', {
+          lat: this.map.getCenter().y,
+          lng: this.map.getCenter().x,
+        });
+      });
     },
 
     clickEventListener() {

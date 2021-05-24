@@ -1,6 +1,5 @@
 <template>
-  <div id="map">
-  </div>
+  <div id="map" />
 </template>
 
 <script>
@@ -27,19 +26,18 @@ export default {
   data: () => ({
     map: null,
     markers: [],
-    test: 0,
     hasClickEvent: true,
     isClickLoading: false,
   }),
 
   mounted() {
     // eslint-disable-next-line no-unused-expressions
-    window.naver ? this.initMap() : this.naverMapApiScript();
-    window.clickInfoWindowButton = this.clickInfoWindowButton;
+    window.naver ? this.initMap() : this.addNaverMapApiScript();
+    window.clickSelectStationButton = this.clickSelectStationButton;
   },
 
   methods: {
-    naverMapApiScript() {
+    addNaverMapApiScript() {
       /* global naver */
       const script = document.createElement('script');
       const type = 'text/javascript';
@@ -60,44 +58,46 @@ export default {
         zoom: this.zoom,
       });
       this.$emit('load');
-      this.clickEventListener();
-      this.dragEndEventListener();
+      this.addClickMapEventListener();
+      this.addDragendEventListener();
     },
 
-    dragEndEventListener() {
+    addDragendEventListener() {
       window.naver.maps.Event.addListener(this.map, 'dragend', () => {
-        this.test += 1;
         this.$emit('dragend', {
           lat: this.map.getCenter().y,
           lng: this.map.getCenter().x,
         });
-        this.setMarker({
-          lat: this.map.getCenter().y,
-          lng: this.map.getCenter().x,
-          stop_nm: this.test,
-        });
       });
     },
 
-    clickEventListener() {
-      window.naver.maps.Event.addListener(this.map, 'click', (position) => {
+    addClickMapEventListener() {
+      window.naver.maps.Event.addListener(this.map, 'click', (eventArgument) => {
         if (this.hasClickEvent) {
           this.isClickLoading = true;
-          this.$emit('click', position.coord);
+          this.$emit('click', eventArgument.coord);
           this.hasClickEvent = false;
-          this.$emit('clickLoading');
+          this.$emit('clickMapEventComplete');
           this.isClickLoading = false;
         }
       });
     },
 
-    clickMarkerEventListener(marker, option) {
+    addClickMarkerEventListener(marker, stationInformation) {
       const contentString = [
         '<div class="iw_inner" style="width: 200px">',
-        '   <h3 class="text-center">', option.stop_nm, '</h1>',
+        '   <h3 class="text-center">', stationInformation.name, '</h1>',
         '   <p class="center">',
-        `       <button class="button" onclick="clickInfoWindowButton(1, '${encodeURIComponent(JSON.stringify(option))}')">출발지 선택</button>`,
-        `       <button class="button" onclick="clickInfoWindowButton(0, '${encodeURIComponent(JSON.stringify(option))}')">도착지 선택</button>`,
+        `       <button class="button"
+                        onclick="clickSelectStationButton('Departure', '${encodeURIComponent(JSON.stringify(stationInformation))}')"
+                        >
+                        출발지 선택
+                </button>`,
+        `       <button class="button"
+                        onclick="clickSelectStationButton('Arrival', '${encodeURIComponent(JSON.stringify(stationInformation))}')"
+                        >
+                        도착지 선택
+                </button>`,
         '   </p>',
         '</div>'].join('');
       const infoWindow = new naver.maps.InfoWindow({
@@ -116,26 +116,26 @@ export default {
       if (!this.isClickLoading) {
         this.hasClickEvent = true;
       } else {
-        this.$on('clickLoading', () => {
+        this.$on('clickMapEventComplete', () => {
           this.hasClickEvent = true;
         });
       }
     },
 
-    initMarker(option) {
+    addMarker(stationInformation) {
       const marker = new window.naver.maps.Marker({
         map: this.map,
-        position: new window.naver.maps.LatLng(option.lat, option.lng),
+        position: new window.naver.maps.LatLng(stationInformation.lat, stationInformation.lng),
         clickable: true,
       });
       marker.setMap(this.map);
       this.markers.push(marker);
-      this.clickMarkerEventListener(marker, option);
+      this.addClickMarkerEventListener(marker, stationInformation);
     },
 
-    setMarker(option) {
+    setMarker(stationInformation) {
       // eslint-disable-next-line no-unused-expressions
-      window.naver ? this.initMarker(option) : this.$on('load', () => this.initMarker(option));
+      window.naver ? this.addMarker(stationInformation) : this.$on('load', () => this.initMarker(stationInformation));
     },
 
     removeMarkers() {
@@ -146,12 +146,12 @@ export default {
       this.setHasClickEvent();
     },
 
-    clickInfoWindowButton(select, option) {
-      const object = JSON.parse(decodeURIComponent(option));
-      if (select === 1) {
-        this.$emit('startStation', object);
-      } else if (select === 0) {
-        this.$emit('endStation', object);
+    clickSelectStationButton(selectOptionString, stationInformation) {
+      const object = JSON.parse(decodeURIComponent(stationInformation));
+      if (selectOptionString === 'Departure') {
+        this.$emit('setDepartureStop', object);
+      } else if (selectOptionString === 'Arrival') {
+        this.$emit('setArrivalStop', object);
       }
     },
   },

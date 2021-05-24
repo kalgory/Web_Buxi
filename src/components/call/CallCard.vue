@@ -39,7 +39,7 @@
 import CallDialog from '@/components/call/CallDialog.vue';
 
 export default {
-  name: 'CallForm',
+  name: 'CallCard',
 
   components: {
     CallDialog,

@@ -14,12 +14,16 @@
           ref="naver_map"
           class="fill-height"
           @click="mapClickEventHandler"
-          @startStation="start"
-          @endStation="end"
+          @setDepartureStop="getDepartureStop"
+          @setArrivalStop="getArrivalStop"
         />
       </v-col>
     </v-row>
-    <call-card id="overlay" />
+    <call-card
+      id="overlay"
+      :arrival-stop="arrivalStop"
+      :departure-stop="departureStop"
+    />
   </v-container>
 </template>
 
@@ -35,16 +39,58 @@ export default {
     NaverMap,
   },
 
+  data: () => ({
+    departureStop: {
+      name: '',
+      number: 0,
+      lat: 0,
+      lng: 0,
+    },
+    arrivalStop: {
+      name: '',
+      number: 0,
+      lat: 0,
+      lng: 0,
+    },
+    testStation: {
+      stop_nm: '건대입구역',
+      ycode: '37.54093868',
+      stop_no: '05217',
+      xcode: '127.0673386',
+    },
+  }),
+
+  mounted() {
+    this.$refs.naver_map.setMarker({
+      name: this.testStation.stop_nm,
+      number: this.testStation.stop_no,
+      lng: this.testStation.xcode,
+      lat: this.testStation.ycode,
+    });
+  },
+
   methods: {
     mapClickEventHandler(position) {
       console.log(position);
       this.$refs.naver_map.setHasClickEvent();
     },
-    start(option) {
-      console.log('start station : ', option);
+    getDepartureStop(stationInformation) {
+      console.log('start station : ', stationInformation);
+      this.departureStop = {
+        name: stationInformation.name,
+        number: stationInformation.number,
+        lng: stationInformation.lng,
+        lat: stationInformation.lat,
+      };
     },
-    end(option) {
-      console.log('end station : ', option);
+    getArrivalStop(stationInformation) {
+      console.log('end station : ', stationInformation);
+      this.arrivalStop = {
+        name: stationInformation.name,
+        number: stationInformation.number,
+        lng: stationInformation.lng,
+        lat: stationInformation.lat,
+      };
     },
   },
 };

@@ -1,45 +1,23 @@
 <template>
   <v-form @submit.prevent="submit">
     <v-container>
-      <v-row no-gutters>
-        <v-col cols="7">
+      <v-row
+        no-gutters
+        justify="space-around"
+      >
+        <v-col cols="5">
           <v-text-field
             v-model="departureStop"
             placeholder="출발 정류장"
             disabled
           />
         </v-col>
-        <v-col offset="1">
-          <v-btn
-            block
-            class="mt-4"
-            color="primary"
-            @click="setDepartStop"
-          >
-            선택
-          </v-btn>
-        </v-col>
-      </v-row>
-      <v-row
-        no-gutters
-        class="mt-n1"
-      >
-        <v-col cols="7">
+        <v-col cols="5">
           <v-text-field
             v-model="arrivalStop"
             placeholder="도착 정류장"
             disabled
           />
-        </v-col>
-        <v-col offset="1">
-          <v-btn
-            block
-            class="mt-4"
-            color="primary"
-            @click="setArriveStop"
-          >
-            선택
-          </v-btn>
         </v-col>
       </v-row>
       <v-row no-gutters>

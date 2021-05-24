@@ -1,7 +1,5 @@
 <template>
-  <div
-    id="map"
-  />
+  <div id="map" />
 </template>
 
 <script>
@@ -41,7 +39,7 @@ export default {
       /* global naver */
       const script = document.createElement('script');
       const type = 'text/javascript';
-      const src = 'https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=s4ygn6mjbi';
+      const src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${this.$clientID}`;
       script.setAttribute('async', '');
       script.setAttribute('defer', '');
       script.setAttribute('type', type);
@@ -74,7 +72,6 @@ export default {
     addClickMapEventListener() {
       window.naver.maps.Event.addListener(this.map, 'click', (eventArgument) => {
         if (this.hasClickEvent) {
-          console.log(eventArgument);
           this.isClickLoading = true;
           this.$emit('click', eventArgument.coord);
           this.hasClickEvent = false;

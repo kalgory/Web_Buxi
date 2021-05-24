@@ -1,21 +1,21 @@
 <template>
   <v-card>
     <v-card-text>
-      <v-container>
+      <v-container class="mb-n1 mt-n3">
         <v-row
           no-gutters
           justify="space-around"
         >
           <v-col cols="5">
             <v-text-field
-              v-model="departureStopName"
+              :value="departureStop.name"
               placeholder="출발 정류장"
               disabled
             />
           </v-col>
           <v-col cols="5">
             <v-text-field
-              v-model="arrivalStopName"
+              :value="arrivalStop.name"
               placeholder="도착 정류장"
               disabled
             />
@@ -25,10 +25,8 @@
           <v-col>
             <call-dialog
               :is-valid="isValid"
-              :departure-stop-name="departureStopName"
-              :departure-stop-number="departureStopNumber"
-              :arrival-stop-name="arrivalStopName"
-              :arrival-stop-number="arrivalStopNumber"
+              :departure-stop="departureStop"
+              :arrival-stop="arrivalStop"
             />
           </v-col>
         </v-row>
@@ -47,17 +45,32 @@ export default {
     CallDialog,
   },
 
+  props: {
+    departureStop: {
+      type: Object,
+      required: true,
+      default: () => ({
+        name: '',
+        number: 0,
+      }),
+    },
+    arrivalStop: {
+      type: Object,
+      required: true,
+      default: () => ({
+        name: '',
+        number: 0,
+      }),
+    },
+  },
+
   data: () => ({
-    departureStopName: '',
-    departureStopNumber: 0,
-    arrivalStopName: '',
-    arrivalStopNumber: 0,
     waitingTime: 0,
   }),
 
   computed: {
     isValid() {
-      return this.departureStopName.length > 0 && this.arrivalStopName.length > 0;
+      return this.departureStop.name.length > 0 && this.arrivalStop.name.length > 0;
     },
   },
 };

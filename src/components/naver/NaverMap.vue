@@ -33,11 +33,11 @@ export default {
 
   mounted() {
     // eslint-disable-next-line no-unused-expressions
-    window.naver ? this.initMap() : this.naverMapApiScript();
+    window.naver ? this.initMap() : this.addNaverMapApiScript();
   },
 
   methods: {
-    naverMapApiScript() {
+    addNaverMapApiScript() {
       /* global naver */
       const script = document.createElement('script');
       const type = 'text/javascript';
@@ -57,12 +57,12 @@ export default {
         center: new naver.maps.LatLng(this.centerPosition.lat, this.centerPosition.lng),
         zoom: this.zoom,
       });
-      this.$emit('load');
-      this.clickEventListener();
-      this.dragEndEventListener();
+      this.$emit('mapLoaded');
+      this.addClickMapEventListener();
+      this.addDragendEventListener();
     },
 
-    dragEndEventListener() {
+    addDragendEventListener() {
       window.naver.maps.Event.addListener(this.map, 'dragend', () => {
         this.$emit('dragend', {
           lat: this.map.getCenter().y,
@@ -71,13 +71,14 @@ export default {
       });
     },
 
-    clickEventListener() {
-      window.naver.maps.Event.addListener(this.map, 'click', (position) => {
+    addClickMapEventListener() {
+      window.naver.maps.Event.addListener(this.map, 'click', (eventArgument) => {
         if (this.hasClickEvent) {
+          console.log(eventArgument);
           this.isClickLoading = true;
-          this.$emit('click', position.coord);
+          this.$emit('click', eventArgument.coord);
           this.hasClickEvent = false;
-          this.$emit('clickLoading');
+          this.$emit('clickMapEventComplete');
           this.isClickLoading = false;
         }
       });
@@ -87,28 +88,28 @@ export default {
       if (!this.isClickLoading) {
         this.hasClickEvent = true;
       } else {
-        this.$on('clickLoading', () => {
+        this.$on('clickMapEventComplete', () => {
           this.hasClickEvent = true;
         });
       }
     },
 
-    initMarker(option) {
+    addMarker(stationInformation) {
       const marker = new window.naver.maps.Marker({
         map: this.map,
-        position: new window.naver.maps.LatLng(option.lat, option.lng),
+        position: new window.naver.maps.LatLng(stationInformation.lat, stationInformation.lng),
         clickable: true,
       });
       marker.setMap(this.map);
       this.markers.push(marker);
       window.naver.maps.Event.addListener(marker, 'click', () => {
-        this.$emit('markerClick', option);
+        this.$emit('clickMarker', stationInformation);
       });
     },
 
-    setMarker(option) {
+    setMarker(stationInformation) {
       // eslint-disable-next-line no-unused-expressions
-      window.naver ? this.initMarker(option) : this.$on('load', () => this.initMarker(option));
+      window.naver ? this.addMarker(stationInformation) : this.$on('mapLoaded', () => this.addMarker());
     },
 
     removeMarkers() {

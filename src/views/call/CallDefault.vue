@@ -14,23 +14,24 @@
           ref="naver_map"
           class="fill-height"
           @click="mapClickEventHandler"
+          @startStation="start"
+          @endStation="end"
         />
       </v-col>
     </v-row>
-
-    <call-card id="overlay" />
+    <!--    <call-card id="overlay" />-->
   </v-container>
 </template>
 
 <script>
-import CallCard from '@/components/call/CallCard.vue';
+// import CallCard from '@/components/call/CallCard.vue';
 import NaverMap from '@/components/naver/NaverMap.vue';
 
 export default {
   name: 'CallDefault',
 
   components: {
-    CallCard,
+    // CallCard,
     NaverMap,
   },
 
@@ -38,6 +39,12 @@ export default {
     mapClickEventHandler(position) {
       console.log(position);
       this.$refs.naver_map.setHasClickEvent();
+    },
+    start(option) {
+      console.log('start station : ', option);
+    },
+    end(option) {
+      console.log('end station : ', option);
     },
   },
 };
@@ -51,6 +58,6 @@ export default {
   left: 0;
   right: 0;
   bottom: 8px;
-  /*background-color: rgba(0,0,0,0.5);*/
+  background-color: rgba(0, 0, 0, 0.5);
 }
 </style>

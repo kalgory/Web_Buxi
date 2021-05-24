@@ -37,13 +37,13 @@
           <v-row class="mt-n2">
             <v-col>
               <span class="text-body-1"> 출발 </span>
-              <span class="ml-8 font-weight-bold">{{ departureStopName }}</span>
+              <span class="ml-8 font-weight-bold">{{ departureStop.name }}</span>
             </v-col>
           </v-row>
           <v-row>
             <v-col>
               <span class="text-body-1"> 도착 </span>
-              <span class="ml-8 font-weight-bold">{{ arrivalStopName }}</span>
+              <span class="ml-8 font-weight-bold">{{ arrivalStop.name }}</span>
             </v-col>
           </v-row>
         </v-container>
@@ -72,20 +72,12 @@ export default {
       type: Boolean,
       required: true,
     },
-    departureStopName: {
-      type: String,
+    departureStop: {
+      type: Object,
       required: true,
     },
-    departureStopNumber: {
-      type: Number,
-      required: true,
-    },
-    arrivalStopName: {
-      type: String,
-      required: true,
-    },
-    arrivalStopNumber: {
-      type: Number,
+    arrivalStop: {
+      type: Object,
       required: true,
     },
   },

@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import PositionEventBus from '../../event/position';
+import MapEventBus from '../../event/map';
 
 export default {
   name: 'CallForm',
@@ -67,7 +67,7 @@ export default {
   },
 
   created() {
-    PositionEventBus.$on('responsePosition', (payload) => {
+    MapEventBus.$on('responsePosition', (payload) => {
       console.log(payload);
     });
   },
@@ -76,16 +76,6 @@ export default {
     submit() {
       console.log(this.arrivalStop);
       console.log(this.departureStop);
-    },
-
-    setArriveStop() {
-      PositionEventBus.$emit('requestPosition', 'arrivalStop');
-      this.arrivalStop = '화양리';
-    },
-
-    setDepartStop() {
-      PositionEventBus.$emit('requestPosition', 'departureStop');
-      this.departureStop = '건대입구사거리';
     },
   },
 };

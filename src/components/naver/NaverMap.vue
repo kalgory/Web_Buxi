@@ -1,7 +1,5 @@
 <template>
-  <div
-    id="map"
-  />
+  <div id="map" />
 </template>
 
 <script>
@@ -41,7 +39,7 @@ export default {
       /* global naver */
       const script = document.createElement('script');
       const type = 'text/javascript';
-      const src = 'https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=s4ygn6mjbi';
+      const src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${this.$clientID}`;
       script.setAttribute('async', '');
       script.setAttribute('defer', '');
       script.setAttribute('type', type);
@@ -58,11 +56,11 @@ export default {
         zoom: this.zoom,
       });
       this.$emit('load');
-      this.clickEventListener();
-      this.dragEndEventListener();
+      this.addClickEventListener();
+      this.addDragEndEventListener();
     },
 
-    dragEndEventListener() {
+    addDragEndEventListener() {
       window.naver.maps.Event.addListener(this.map, 'dragend', () => {
         this.$emit('dragend', {
           lat: this.map.getCenter().y,
@@ -71,7 +69,7 @@ export default {
       });
     },
 
-    clickEventListener() {
+    addClickEventListener() {
       window.naver.maps.Event.addListener(this.map, 'click', (position) => {
         if (this.hasClickEvent) {
           this.isClickLoading = true;

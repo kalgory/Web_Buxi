@@ -49,7 +49,7 @@
         </v-container>
       </v-card-text>
 
-      <v-card-actions>
+      <v-card-actions class="mt-n4">
         <v-spacer />
         <v-btn
           color="primary"
@@ -92,7 +92,7 @@ export default {
 
   data: () => ({
     waitingTime: 0,
-    isDialogShow: true,
+    isDialogShow: false,
   }),
 
   methods: {

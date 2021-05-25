@@ -17,8 +17,8 @@ export default {
       type: Object,
       required: false,
       default: () => ({
-        lat: 37.54664772691377,
-        lng: 127.0708046173278,
+        lat: 37.54093868,
+        lng: 127.0673386,
       }),
     },
   },
@@ -29,6 +29,10 @@ export default {
     hasClickEvent: true,
     isClickLoading: false,
   }),
+
+  created() {
+    this.getCurrentPosition();
+  },
 
   mounted() {
     // eslint-disable-next-line no-unused-expressions
@@ -54,7 +58,10 @@ export default {
     initMap() {
       const container = document.getElementById('map');
       this.map = new naver.maps.Map(container, {
-        center: new naver.maps.LatLng(this.centerPosition.lat, this.centerPosition.lng),
+        center: new naver.maps.LatLng(
+          this.centerPosition.lat,
+          this.centerPosition.lng,
+        ),
         zoom: this.zoom,
       });
       this.$emit('mapLoaded');
@@ -152,6 +159,26 @@ export default {
         this.$emit('setDepartureStop', object);
       } else if (selectOptionString === 'Arrival') {
         this.$emit('setArrivalStop', object);
+      }
+    },
+
+    getCurrentPosition() {
+      if (navigator.geolocation) { // GPS를 지원하면
+        navigator.geolocation.getCurrentPosition((position) => {
+          this.map.setCenter(new naver.maps.LatLng(
+            position.coords.latitude,
+            position.coords.longitude,
+          ));
+        }, (error) => {
+          console.error(error);
+        }, {
+          enableHighAccuracy: false,
+          maximumAge: 0,
+          timeout: Infinity,
+        });
+      } else {
+        // eslint-disable-next-line no-alert
+        alert('GPS를 지원하지 않습니다');
       }
     },
   },

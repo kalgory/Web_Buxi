@@ -65,7 +65,6 @@ export default {
       lng: this.testStation.xcode,
       lat: this.testStation.ycode,
     });
-    this.getCurrentPosition();
   },
 
   methods: {
@@ -102,26 +101,6 @@ export default {
         lng: stopInformation.lng,
         lat: stopInformation.lat,
       };
-    },
-    getCurrentPosition() {
-      if (navigator.geolocation) { // GPS를 지원하면
-        navigator.geolocation.getCurrentPosition((position) => {
-          this.$refs.naver_map.setMarker({
-            name: this.testStation.stop_nm,
-            number: this.testStation.stop_no,
-            lng: position.coords.longitude,
-            lat: position.coords.latitude,
-          });
-        }, (error) => {
-          console.error(error);
-        }, {
-          enableHighAccuracy: false,
-          maximumAge: 0,
-          timeout: Infinity,
-        });
-      } else {
-        alert('GPS를 지원하지 않습니다');
-      }
     },
   },
 };

@@ -41,7 +41,7 @@ export default {
       /* global naver */
       const script = document.createElement('script');
       const type = 'text/javascript';
-      const src = 'https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=s4ygn6mjbi';
+      const src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${this.$clientID}`;
       script.setAttribute('async', '');
       script.setAttribute('defer', '');
       script.setAttribute('type', type);

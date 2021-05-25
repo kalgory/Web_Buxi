@@ -9,7 +9,7 @@ import Vuetify from './plugins/vuetify';
 
 Vue.config.productionTip = false;
 Vue.prototype.$clientID = 's4ygn6mjbi';
-Vue.prototype.$apiURI = 'https://35.232.144.196:3000';
+Vue.prototype.$apiURI = 'http://35.232.144.196:3000';
 
 new Vue({
   router: Router,

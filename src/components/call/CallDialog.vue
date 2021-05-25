@@ -7,7 +7,7 @@
       <v-btn
         block
         color="primary"
-        :disabled="!!isValid"
+        :disabled="!isValid"
         v-bind="attrs"
         v-on="on"
       >

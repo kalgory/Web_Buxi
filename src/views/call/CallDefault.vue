@@ -13,9 +13,9 @@
         <naver-map
           ref="naver_map"
           class="fill-height"
-          @click="mapClickEventHandler"
-          @setDepartureStop="getDepartureStop"
-          @setArrivalStop="getArrivalStop"
+          @click="onClick"
+          @setDepartureStop="onSetDepartureStop"
+          @setArrivalStop="onsSetArrivalStop"
         />
       </v-col>
     </v-row>
@@ -70,26 +70,26 @@ export default {
   },
 
   methods: {
-    mapClickEventHandler(position) {
+    onClick(position) {
       console.log(position);
       this.$refs.naver_map.setHasClickEvent();
     },
-    getDepartureStop(stationInformation) {
-      console.log('start station : ', stationInformation);
+    onSetDepartureStop(stopInformation) {
+      console.log('start station : ', stopInformation);
       this.departureStop = {
-        name: stationInformation.name,
-        number: stationInformation.number,
-        lng: stationInformation.lng,
-        lat: stationInformation.lat,
+        name: stopInformation.name,
+        number: stopInformation.number,
+        lng: stopInformation.lng,
+        lat: stopInformation.lat,
       };
     },
-    getArrivalStop(stationInformation) {
-      console.log('end station : ', stationInformation);
+    onsSetArrivalStop(stopInformation) {
+      console.log('end station : ', stopInformation);
       this.arrivalStop = {
-        name: stationInformation.name,
-        number: stationInformation.number,
-        lng: stationInformation.lng,
-        lat: stationInformation.lat,
+        name: stopInformation.name,
+        number: stopInformation.number,
+        lng: stopInformation.lng,
+        lat: stopInformation.lat,
       };
     },
   },

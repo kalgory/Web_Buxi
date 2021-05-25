@@ -43,14 +43,10 @@ export default {
     departureStop: {
       name: '',
       number: 0,
-      lat: 0,
-      lng: 0,
     },
     arrivalStop: {
       name: '',
       number: 0,
-      lat: 0,
-      lng: 0,
     },
     testStation: {
       stop_nm: '건대입구역',

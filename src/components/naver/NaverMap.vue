@@ -57,7 +57,7 @@ export default {
         center: new naver.maps.LatLng(this.centerPosition.lat, this.centerPosition.lng),
         zoom: this.zoom,
       });
-      this.$emit('load');
+      this.$emit('mapLoaded');
       this.addClickMapEventListener();
       this.addDragendEventListener();
     },
@@ -135,7 +135,7 @@ export default {
 
     setMarker(stationInformation) {
       // eslint-disable-next-line no-unused-expressions
-      window.naver ? this.addMarker(stationInformation) : this.$on('load', () => this.initMarker(stationInformation));
+      window.naver ? this.addMarker(stationInformation) : this.$on('mapLoaded', () => this.addMarker(stationInformation));
     },
 
     removeMarkers() {

@@ -75,10 +75,12 @@ export default {
     onDragend(position) {
       console.log(position);
       Axios.post(`${this.$apiURI}/getStations`, {
-
+        lng: position.lng,
+        lat: position.lat,
+        radius: 50000,
       })
         .then((response) => {
-          console.log(response);
+          console.log(response.data);
         })
         .catch((error) => {
           console.log(error);

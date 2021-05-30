@@ -77,7 +77,7 @@ export default {
       Axios.post(`${this.$apiURI}/getStations`, {
         lng: position.lng,
         lat: position.lat,
-        radius: 50000,
+        radius: 500,
       })
         .then((response) => {
           console.log(response.data);

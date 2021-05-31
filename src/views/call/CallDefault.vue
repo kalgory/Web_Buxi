@@ -50,22 +50,7 @@ export default {
       name: '',
       number: 0,
     },
-    testStation: {
-      stop_nm: '건대입구역',
-      ycode: '37.54093868',
-      stop_no: '05217',
-      xcode: '127.0673386',
-    },
   }),
-
-  mounted() {
-    this.$refs.naver_map.setMarker({
-      name: this.testStation.stop_nm,
-      number: this.testStation.stop_no,
-      lng: this.testStation.xcode,
-      lat: this.testStation.ycode,
-    });
-  },
 
   methods: {
     onClick(position) {
@@ -74,16 +59,15 @@ export default {
     },
     onDragend(position) {
       console.log(position);
-      Axios.post(`${this.$apiURI}/getStations`, {
+      Axios.post('http://35.232.144.196:3000/getStations', {
         lng: position.lng,
         lat: position.lat,
-        radius: 500,
+        range: 200,
       })
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
+        .then((res) => {
+          res.data.stations.forEach((station) => {
+            this.$refs.naver_map.setMarker(station);
+          });
         });
     },
     onSetDepartureStop(stopInformation) {
@@ -103,6 +87,16 @@ export default {
         lng: stopInformation.lng,
         lat: stopInformation.lat,
       };
+      console.log(this.departureStop.number, this.arrivalStop.number);
+      Axios.post('http://35.232.144.196:3000/insCustomer', {
+        uid: 'fucking 이준호',
+        departStation: this.departureStop.number,
+        departTime: 10,
+        arrivalStation: this.arrivalStop.number,
+      })
+        .then((res) => {
+          console.log(res);
+        });
     },
   },
 };

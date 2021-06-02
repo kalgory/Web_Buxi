@@ -1,10 +1,12 @@
 <template>
-
+  <div>
+    board on
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'BoardBefore.vue',
+  name: 'BoardBefore',
 };
 </script>
 

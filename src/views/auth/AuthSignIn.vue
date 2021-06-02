@@ -24,7 +24,7 @@ export default {
   watch: {
     isAuthenticated(value) {
       if (value) {
-        this.$router.push('/call');
+        this.$router.push('/board');
       }
     },
   },

@@ -34,7 +34,7 @@ import NaverMap from '@/components/naver/NaverMap.vue';
 import Axios from 'axios';
 
 export default {
-  name: 'CallDefault',
+  name: 'BoardApply',
 
   components: {
     CallCard,
@@ -59,7 +59,7 @@ export default {
     },
     onDragend(position) {
       console.log(position);
-      Axios.post('http://35.232.144.196:3000/getStations', {
+      Axios.post(`${this.$apiURI}/getStations`, {
         lng: position.lng,
         lat: position.lat,
         range: 200,

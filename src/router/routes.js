@@ -1,18 +1,17 @@
 // Base
 const Base404 = () => import('@/views/Base404');
+const BaseBoard = () => import('@/views/BaseBoard');
 const BaseAuth = () => import('@/views/BaseAuth');
-const BasePayment = () => import('@/views/BasePayment');
 const BaseUser = () => import('@/views/BaseUser');
-const BaseCall = () => import('@/views/BaseCall');
+
 // Auth
 const AuthSignIn = () => import('@/views/auth/AuthSignIn');
 
-// Call
-const CallDefault = () => import('@/views/call/CallDefault');
-const CallApply = () => import('@/views/call/CallApply');
-
-// Payment
-const PaymentDefault = () => import('@/views/payment/PaymentDefault');
+// Board
+const BoardApply = () => import('@/views/board/BoardApply');
+const BoardBefore = () => import('@/views/board/BoardBefore');
+const BoardOn = () => import('@/views/board/BoardOn');
+const BoardAfter = () => import('@/views/board/BoardAfter');
 
 // User
 const UserProfile = () => import('@/views/user/UserProfile');
@@ -29,41 +28,44 @@ export default [
   {
     name: 'root',
     path: '/',
-    redirect: '/call',
+    redirect: '/board',
     meta: {
       isAppBarShow: true,
     },
   },
   {
-    path: '/call',
-    component: BaseCall,
+    path: '/board',
+    redirect: '/board/apply',
+    component: BaseBoard,
     children: [
       {
-        name: 'call default',
-        path: '',
-        component: CallDefault,
+        name: 'board apply',
+        path: 'apply',
+        component: BoardApply,
         meta: {
           isAppBarShow: true,
         },
       },
       {
-        name: 'call apply',
-        path: '/apply',
-        component: CallApply,
+        name: 'board before',
+        path: 'before',
+        component: BoardBefore,
         meta: {
           isAppBarShow: true,
         },
       },
-    ],
-  },
-  {
-    path: '/payment',
-    component: BasePayment,
-    children: [
       {
-        name: 'payment default',
-        path: '',
-        component: PaymentDefault,
+        name: 'board on',
+        path: 'before',
+        component: BoardOn,
+        meta: {
+          isAppBarShow: true,
+        },
+      },
+      {
+        name: 'board after',
+        path: 'after',
+        component: BoardAfter,
         meta: {
           isAppBarShow: true,
         },

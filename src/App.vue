@@ -11,7 +11,7 @@
             <v-progress-circular
               indeterminate
               size="128"
-              color="primary"
+              color="white"
             />
           </v-col>
         </v-row>
@@ -43,6 +43,9 @@ export default {
     isAuthenticated() {
       return this.$store.getters.getIsAuthenticated;
     },
+    isBoardLoading() {
+      return this.$store.getters.getIsBoardLoading;
+    },
   },
 
   watch: {
@@ -53,8 +56,12 @@ export default {
             this.$router.push('/auth/signin');
           }
         }
+        this.isLoading = false;
       }
-      this.isLoading = false;
+    },
+    isBoardLoading(value) {
+      console.log('is boarding change', value);
+      this.isLoading = value;
     },
   },
 

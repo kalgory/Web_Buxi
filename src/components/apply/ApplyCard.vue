@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import CallDialog from '@/components/call/CallDialog.vue';
+import CallDialog from '@/components/apply/ApplyDialog.vue';
 
 export default {
   name: 'CallCard',

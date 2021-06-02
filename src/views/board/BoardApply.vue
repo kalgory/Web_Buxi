@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import CallCard from '@/components/call/CallCard.vue';
+import CallCard from '@/components/apply/ApplyCard.vue';
 import NaverMap from '@/components/naver/NaverMap.vue';
 import Axios from 'axios';
 
@@ -71,7 +71,7 @@ export default {
         });
     },
     onSetDepartureStop(stopInformation) {
-      console.log('start station : ', stopInformation);
+      console.log('departure stop : ', stopInformation);
       this.departureStop = {
         name: stopInformation.name,
         number: stopInformation.number,
@@ -80,23 +80,13 @@ export default {
       };
     },
     onsSetArrivalStop(stopInformation) {
-      console.log('end station : ', stopInformation);
+      console.log('arrival stop : ', stopInformation);
       this.arrivalStop = {
         name: stopInformation.name,
         number: stopInformation.number,
         lng: stopInformation.lng,
         lat: stopInformation.lat,
       };
-      console.log(this.departureStop.number, this.arrivalStop.number);
-      Axios.post('http://35.232.144.196:3000/insCustomer', {
-        uid: 'fucking 이준호',
-        departStation: this.departureStop.number,
-        departTime: 10,
-        arrivalStation: this.arrivalStop.number,
-      })
-        .then((res) => {
-          console.log(res);
-        });
     },
   },
 };

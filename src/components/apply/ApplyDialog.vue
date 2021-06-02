@@ -7,7 +7,7 @@
       <v-btn
         block
         color="primary"
-        :disabled="!isValid"
+        :disabled="!!isValid"
         v-bind="attrs"
         v-on="on"
       >
@@ -64,6 +64,9 @@
 </template>
 
 <script>
+import Axios from 'axios';
+import Firebase from 'firebase/app';
+
 export default {
   name: 'CallDialog',
 
@@ -90,7 +93,24 @@ export default {
   methods: {
     submit() {
       console.log('matching');
+
+      this.$store.commit('setIsBoardLoading', true);
+
       this.isDialogShow = false;
+
+      Axios.post(`${this.$apiURI}/match`, {
+        uid: Firebase.auth().currentUser.uid,
+        departStation: this.departureStop.number,
+        arrivalStation: this.arrivalStop.number,
+        departTime: 10,
+      })
+        .then((response) => {
+          console.log(response);
+          this.$router.push('/board/after');
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
   },
 };

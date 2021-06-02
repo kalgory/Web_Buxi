@@ -54,12 +54,11 @@ export default {
 
   methods: {
     onClick(position) {
-      console.log(position);
       this.$refs.naver_map.setHasClickEvent();
       this.$refs.naver_map.setCustomMarker({
         lat: position.y,
         lng: position.x,
-      });
+      }, 'arrivalStop');
     },
     onDragend(position) {
       console.log(position);

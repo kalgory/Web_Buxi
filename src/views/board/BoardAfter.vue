@@ -22,13 +22,14 @@
       :departure-stop="departureStop"
       :remaining-time="remainingTime"
     />
+    {{ timerID }}
   </v-container>
 </template>
 
 <script>
 import AfterCard from '@/components/board/after/AfterCard.vue';
 import NaverMap from '@/components/naver/NaverMap.vue';
-// import Axios from 'axios';
+import Axios from 'axios';
 
 export default {
   name: 'BoardBefore',
@@ -40,6 +41,7 @@ export default {
 
   data: () => ({
     remainingTime: 0,
+    timerID: null,
   }),
 
   computed: {
@@ -52,14 +54,41 @@ export default {
     isBoardBefore() {
       return this.$store.getters.getIsBoardBefore;
     },
+    bus() {
+      return this.$store.getters.getBus;
+    },
   },
 
   created() {
     if (!this.isBoardBefore) {
       // this.$router.push('/board/apply');
     }
+
+    // 1. 컴포넌트 create 시 위치 받아오기
+    // this.getBusPosition();
+    // 2. timer 시작
+    this.timerID = setInterval(() => { this.getBusPosition(); }, 3000);
   },
 
+  destroyed() {
+    clearTimeout(this.timerID);
+  },
+
+  methods: {
+    getBusPosition() {
+      console.log('get bus position method called');
+      Axios.post(`${this.$apiURI}/getStations`, {
+        busID: this.bus.ID,
+        departureNumber: this.departureStop.number,
+      })
+        // eslint-disable-next-line no-unused-vars
+        .then((response) => {
+          // 1. 이전에 있던 버스 마카 지우고
+          // 2. 리스폰스에 있는 버스 위치 마카 입력하고
+          // 3. 위에 eslint 주석 지우고
+        });
+    },
+  },
 };
 </script>
 

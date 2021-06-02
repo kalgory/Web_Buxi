@@ -90,8 +90,8 @@ export default {
         lat: position.lat,
         range: 200,
       })
-        .then((res) => {
-          res.data.stations.forEach((station) => {
+        .then((response) => {
+          response.data.stations.forEach((station) => {
             this.$refs.naver_map.setMarker(station);
           });
         });

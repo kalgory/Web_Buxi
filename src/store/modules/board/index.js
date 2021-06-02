@@ -5,12 +5,15 @@ export default {
     isBoardOn: false,
     isBoardAfter: false,
     bus: {
+      ID: 0,
     },
     departureStop: {
       name: 'departure',
+      number: 0,
     },
     arrivalStop: {
       name: 'arrival',
+      number: 0,
     },
   },
 
@@ -33,6 +36,9 @@ export default {
     getArrivalStop(state) {
       return state.arrivalStop;
     },
+    getBus(state) {
+      return state.bus;
+    },
   },
 
   mutations: {
@@ -53,6 +59,9 @@ export default {
     },
     setArrivalStop(state, value) {
       state.arrivalStop = value;
+    },
+    setBus(state, value) {
+      state.bus = value;
     },
   },
 };

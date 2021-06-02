@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card max-width="360">
     <v-card-text>
       <v-container class="mb-n1 mt-n3">
         <v-row
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import ApplyDialog from '@/components/ board/apply/ApplyDialog.vue';
+import ApplyDialog from '@/components/board/apply/ApplyDialog.vue';
 
 export default {
   name: 'ApplyCard',

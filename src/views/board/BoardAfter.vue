@@ -16,8 +16,9 @@
         />
       </v-col>
     </v-row>
-    <apply-card
+    <after-card
       id="overlay"
+      class="mb-6"
       :arrival-stop="arrivalStop"
       :departure-stop="departureStop"
     />
@@ -25,7 +26,7 @@
 </template>
 
 <script>
-import ApplyCard from '@/components/ board/apply/ApplyCard.vue';
+import AfterCard from '@/components/board/after/AfterCard.vue';
 import NaverMap from '@/components/naver/NaverMap.vue';
 // import Axios from 'axios';
 
@@ -34,7 +35,7 @@ export default {
 
   components: {
     NaverMap,
-    ApplyCard,
+    AfterCard,
   },
 
   data: () => ({
@@ -58,3 +59,14 @@ export default {
 
 };
 </script>
+
+<style scoped>
+#overlay {
+  position: fixed;
+  width: 100%;
+  margin: auto;
+  left: 0;
+  right: 0;
+  bottom: 8px;
+}
+</style>

@@ -92,17 +92,13 @@ export default {
 
   methods: {
     submit() {
-      console.log('matching');
-
       this.$store.commit('setIsBoardLoading', true);
-
       this.isDialogShow = false;
-
       Axios.post(`${this.$apiURI}/match`, {
         uid: Firebase.auth().currentUser.uid,
         departStation: this.departureStop.number,
         arrivalStation: this.arrivalStop.number,
-        departTime: 10,
+        departTime: this.waitingTime,
       })
         .then((response) => {
           console.log(response);
@@ -110,6 +106,9 @@ export default {
         })
         .catch((error) => {
           console.error(error);
+        })
+        .finally(() => {
+          this.$store.commit('setIsBoardLoading', false);
         });
     },
   },

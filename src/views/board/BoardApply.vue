@@ -22,6 +22,7 @@
     </v-row>
     <apply-card
       id="overlay"
+      class="mb-6"
       :arrival-stop="arrivalStop"
       :departure-stop="departureStop"
     />
@@ -44,7 +45,7 @@
 </template>
 
 <script>
-import ApplyCard from '@/components/ board/apply/ApplyCard.vue';
+import ApplyCard from '@/components/board/apply/ApplyCard.vue';
 import NaverMap from '@/components/naver/NaverMap.vue';
 import Axios from 'axios';
 
@@ -116,11 +117,10 @@ export default {
 <style scoped>
 #overlay {
   position: fixed;
-  width: 340px;
-  margin: 5% auto;
+  width: 100%;
+  margin: auto;
   left: 0;
   right: 0;
   bottom: 8px;
-  /*background-color: rgba(0, 0, 0, 0.5);*/
 }
 </style>

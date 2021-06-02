@@ -32,19 +32,12 @@ export default {
     AppBar,
   },
 
-  data: () => ({
-    // isLoading: true,
-  }),
-
   computed: {
     isAuthLoading() {
       return this.$store.getters.getIsAuthLoading;
     },
     isAuthenticated() {
       return this.$store.getters.getIsAuthenticated;
-    },
-    isBoardLoading() {
-      return this.$store.getters.getIsBoardLoading;
     },
   },
 
@@ -57,10 +50,6 @@ export default {
           }
         }
       }
-    },
-    isBoardLoading(value) {
-      console.log('is boarding change', value);
-      this.isLoading = value;
     },
   },
 

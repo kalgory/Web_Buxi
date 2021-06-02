@@ -23,7 +23,7 @@
         </v-row>
         <v-row no-gutters>
           <v-col>
-            <call-dialog
+            <apply-dialog
               :is-valid="isValid"
               :departure-stop="departureStop"
               :arrival-stop="arrivalStop"
@@ -36,13 +36,13 @@
 </template>
 
 <script>
-import CallDialog from '@/components/apply/ApplyDialog.vue';
+import ApplyDialog from '@/components/ board/apply/ApplyDialog.vue';
 
 export default {
-  name: 'CallCard',
+  name: 'ApplyCard',
 
   components: {
-    CallDialog,
+    ApplyDialog,
   },
 
   props: {

@@ -68,7 +68,7 @@ import Axios from 'axios';
 import Firebase from 'firebase/app';
 
 export default {
-  name: 'CallDialog',
+  name: 'ApplyDialog',
 
   props: {
     isValid: {

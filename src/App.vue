@@ -3,7 +3,7 @@
     <app-bar v-if="$route.meta.isAppBarShow" />
     <v-main class="primary">
       <v-container
-        v-if="isLoading"
+        v-if="isAuthLoading"
         fill-height
       >
         <v-row justify="center">
@@ -33,7 +33,7 @@ export default {
   },
 
   data: () => ({
-    isLoading: true,
+    // isLoading: true,
   }),
 
   computed: {
@@ -56,7 +56,6 @@ export default {
             this.$router.push('/auth/signin');
           }
         }
-        this.isLoading = false;
       }
     },
     isBoardLoading(value) {

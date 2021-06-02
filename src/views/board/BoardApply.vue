@@ -20,16 +20,31 @@
         />
       </v-col>
     </v-row>
-    <call-card
+    <apply-card
       id="overlay"
       :arrival-stop="arrivalStop"
       :departure-stop="departureStop"
     />
+    <v-container
+      v-if="isBoardLoading"
+      id="overlay"
+      fill-height
+    >
+      <v-row justify="center">
+        <v-col cols="auto">
+          <v-progress-circular
+            indeterminate
+            size="128"
+            color="primary"
+          />
+        </v-col>
+      </v-row>
+    </v-container>
   </v-container>
 </template>
 
 <script>
-import CallCard from '@/components/apply/ApplyCard.vue';
+import ApplyCard from '@/components/ board/apply/ApplyCard.vue';
 import NaverMap from '@/components/naver/NaverMap.vue';
 import Axios from 'axios';
 
@@ -37,7 +52,7 @@ export default {
   name: 'BoardApply',
 
   components: {
-    CallCard,
+    ApplyCard,
     NaverMap,
   },
 
@@ -51,6 +66,12 @@ export default {
       number: 0,
     },
   }),
+
+  computed: {
+    isBoardLoading() {
+      return this.$store.getters.getIsBoardLoading;
+    },
+  },
 
   methods: {
     onClick(position) {

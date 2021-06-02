@@ -22,7 +22,6 @@
       :departure-stop="departureStop"
       :remaining-time="remainingTime"
     />
-    {{ timerID }}
   </v-container>
 </template>
 
@@ -63,11 +62,13 @@ export default {
     if (!this.isBoardBefore) {
       // this.$router.push('/board/apply');
     }
-
     // 1. 컴포넌트 create 시 위치 받아오기
     // this.getBusPosition();
+    // 버스 포지션으로 맵 위치 수정
     // 2. timer 시작
-    this.timerID = setInterval(() => { this.getBusPosition(); }, 3000);
+    // this.timerID = setInterval(() => { this.getBusPosition(); }, 3000);
+    this.addDepartureStopMarker();
+    this.addArrivalStopMarker();
   },
 
   destroyed() {
@@ -76,17 +77,30 @@ export default {
 
   methods: {
     getBusPosition() {
-      console.log('get bus position method called');
       Axios.post(`${this.$apiURI}/getStations`, {
         busID: this.bus.ID,
         departureNumber: this.departureStop.number,
       })
-        // eslint-disable-next-line no-unused-vars
         .then((response) => {
-          // 1. 이전에 있던 버스 마카 지우고
-          // 2. 리스폰스에 있는 버스 위치 마카 입력하고
-          // 3. 위에 eslint 주석 지우고
+          this.removeBusMarker();
+          this.addBusMarker(response.data.position);
+          if (response.data.remainingTime < 30) {
+            clearTimeout(this.timerID);
+          }
         });
+    },
+    addDepartureStopMarker() {
+      // 출발 정류장 마커 찍기
+    },
+    addArrivalStopMarker() {
+      // 도착 정류장 마커 찍기
+    },
+    addBusMarker(position) {
+      console.log(position);
+      // 버스 정류장 마커 찍기
+    },
+    removeBusMarker() {
+      // 버스 정류장 마커 찍기
     },
   },
 };

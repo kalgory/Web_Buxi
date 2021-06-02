@@ -5,7 +5,7 @@
         <v-row>
           <v-col>
             <p class="text-center text-h6">
-              {{ departureStop.name }} 에 {{ remainingTime }} 분 뒤에 도착합니다!
+              {{ departureStop.name }} 에 {{ convertSecondToMinute(remainingTime/ 60) }} 분 뒤에 도착합니다!
             </p>
           </v-col>
         </v-row>
@@ -55,6 +55,9 @@ export default {
       this.$store.commit('setDepartureStop', {});
       this.$store.commit('setArrivalStop', {});
       this.$router.push('/board/apply');
+    },
+    convertSecondToMinute(second) {
+      return parseInt(second, 10);
     },
   },
 };

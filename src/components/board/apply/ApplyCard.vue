@@ -10,14 +10,16 @@
             <v-text-field
               :value="departureStop.name"
               placeholder="출발 정류장"
-              disabled
+              readonly
+              clearable
             />
           </v-col>
           <v-col cols="5">
             <v-text-field
               :value="arrivalStop.name"
               placeholder="도착 정류장"
-              disabled
+              readonly
+              clearable
             />
           </v-col>
         </v-row>

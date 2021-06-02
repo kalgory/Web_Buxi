@@ -24,15 +24,15 @@ export default {
   watch: {
     isAuthenticated(value) {
       if (value) {
-        this.$router.push('/board');
+        this.$router.push('/board/apply');
       }
     },
   },
 
   created() {
     if (this.isAuthenticated) {
-      if (this.$route.name !== 'sign in') {
-        this.$router.push('/auth/signin');
+      if (this.$route.name !== 'board apply') {
+        this.$router.push('/board/apply');
       }
     }
   },

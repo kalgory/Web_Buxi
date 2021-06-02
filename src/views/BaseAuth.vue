@@ -11,8 +11,5 @@
 <script>
 export default {
   name: 'BaseAuth',
-
-  data: () => ({
-  }),
 };
 </script>

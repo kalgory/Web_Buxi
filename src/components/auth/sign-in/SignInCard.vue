@@ -51,8 +51,9 @@ export default {
       this.$store.commit('setIsAuthLoading', true);
       const provider = new Firebase.auth.GoogleAuthProvider();
       Firebase.auth().signInWithPopup(provider)
+        // eslint-disable-next-line no-unused-vars
         .then((result) => {
-          console.log(result.user);
+          // console.log(result.user);
         })
         .catch((error) => {
           console.error(error);

@@ -3,7 +3,7 @@
     <app-bar v-if="$route.meta.isAppBarShow" />
     <v-main class="primary">
       <v-container
-        v-if="isLoading"
+        v-if="isAuthLoading"
         fill-height
       >
         <v-row justify="center">
@@ -11,7 +11,7 @@
             <v-progress-circular
               indeterminate
               size="128"
-              color="primary"
+              color="white"
             />
           </v-col>
         </v-row>
@@ -32,10 +32,6 @@ export default {
     AppBar,
   },
 
-  data: () => ({
-    isLoading: true,
-  }),
-
   computed: {
     isAuthLoading() {
       return this.$store.getters.getIsAuthLoading;
@@ -54,7 +50,6 @@ export default {
           }
         }
       }
-      this.isLoading = false;
     },
   },
 

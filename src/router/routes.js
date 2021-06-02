@@ -1,20 +1,20 @@
 // Base
-const Base404 = () => import('@/views/Base404');
-const BaseBoard = () => import('@/views/BaseBoard');
-const BaseAuth = () => import('@/views/BaseAuth');
-const BaseUser = () => import('@/views/BaseUser');
+const Base404 = () => import('@/views/Base404.vue');
+const BaseBoard = () => import('@/views/BaseBoard.vue');
+const BaseAuth = () => import('@/views/BaseAuth.vue');
+const BaseUser = () => import('@/views/BaseUser.vue');
 
 // Auth
-const AuthSignIn = () => import('@/views/auth/AuthSignIn');
+const AuthSignIn = () => import('@/views/auth/AuthSignIn.vue');
 
 // Board
-const BoardApply = () => import('@/views/board/BoardApply');
-const BoardBefore = () => import('@/views/board/BoardBefore');
-const BoardOn = () => import('@/views/board/BoardOn');
-const BoardAfter = () => import('@/views/board/BoardAfter');
+const BoardApply = () => import('@/views/board/BoardApply.vue');
+const BoardBefore = () => import('@/views/board/BoardBefore.vue');
+const BoardOn = () => import('@/views/board/BoardOn.vue');
+const BoardAfter = () => import('@/views/board/BoardAfter.vue');
 
 // User
-const UserProfile = () => import('@/views/user/UserProfile');
+const UserProfile = () => import('@/views/user/UserProfile.vue');
 
 export default [
   {
@@ -56,7 +56,7 @@ export default [
       },
       {
         name: 'board on',
-        path: 'before',
+        path: 'on',
         component: BoardOn,
         meta: {
           isAppBarShow: true,

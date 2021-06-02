@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card max-width="360">
     <v-card-text>
       <v-container class="mb-n1 mt-n3">
         <v-row
@@ -10,20 +10,22 @@
             <v-text-field
               :value="departureStop.name"
               placeholder="출발 정류장"
-              disabled
+              readonly
+              clearable
             />
           </v-col>
           <v-col cols="5">
             <v-text-field
               :value="arrivalStop.name"
               placeholder="도착 정류장"
-              disabled
+              readonly
+              clearable
             />
           </v-col>
         </v-row>
         <v-row no-gutters>
           <v-col>
-            <call-dialog
+            <apply-dialog
               :is-valid="isValid"
               :departure-stop="departureStop"
               :arrival-stop="arrivalStop"
@@ -36,37 +38,25 @@
 </template>
 
 <script>
-import CallDialog from '@/components/call/CallDialog.vue';
+import ApplyDialog from '@/components/board/apply/ApplyDialog.vue';
 
 export default {
-  name: 'CallCard',
+  name: 'ApplyCard',
 
   components: {
-    CallDialog,
+    ApplyDialog,
   },
 
   props: {
     departureStop: {
       type: Object,
       required: true,
-      default: () => ({
-        name: '',
-        number: 0,
-      }),
     },
     arrivalStop: {
       type: Object,
       required: true,
-      default: () => ({
-        name: '',
-        number: 0,
-      }),
     },
   },
-
-  data: () => ({
-    waitingTime: 0,
-  }),
 
   computed: {
     isValid() {

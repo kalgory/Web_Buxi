@@ -20,16 +20,32 @@
         />
       </v-col>
     </v-row>
-    <call-card
+    <apply-card
       id="overlay"
+      class="mb-6"
       :arrival-stop="arrivalStop"
       :departure-stop="departureStop"
     />
+    <v-container
+      v-if="isBoardLoading"
+      id="overlay"
+      fill-height
+    >
+      <v-row justify="center">
+        <v-col cols="auto">
+          <v-progress-circular
+            indeterminate
+            size="128"
+            color="primary"
+          />
+        </v-col>
+      </v-row>
+    </v-container>
   </v-container>
 </template>
 
 <script>
-import CallCard from '@/components/call/CallCard.vue';
+import ApplyCard from '@/components/board/apply/ApplyCard.vue';
 import NaverMap from '@/components/naver/NaverMap.vue';
 import Axios from 'axios';
 
@@ -37,7 +53,7 @@ export default {
   name: 'BoardApply',
 
   components: {
-    CallCard,
+    ApplyCard,
     NaverMap,
   },
 
@@ -45,12 +61,22 @@ export default {
     departureStop: {
       name: '',
       number: 0,
+      lat: 0,
+      lng: 0,
     },
     arrivalStop: {
       name: '',
       number: 0,
+      lat: 0,
+      lng: 0,
     },
   }),
+
+  computed: {
+    isBoardLoading() {
+      return this.$store.getters.getIsBoardLoading;
+    },
+  },
 
   methods: {
     onClick(position) {
@@ -67,39 +93,29 @@ export default {
         lat: position.lat,
         range: 200,
       })
-        .then((res) => {
-          res.data.stations.forEach((station) => {
+        .then((response) => {
+          response.data.stations.forEach((station) => {
             this.$refs.naver_map.setMarker(station);
           });
         });
     },
-    onSetDepartureStop(stopInformation) {
-      console.log('start station : ', stopInformation);
+    onSetDepartureStop(stop) {
+      console.log('departure stop : ', stop);
       this.departureStop = {
-        name: stopInformation.name,
-        number: stopInformation.number,
-        lng: stopInformation.lng,
-        lat: stopInformation.lat,
+        name: stop.name,
+        number: stop.number,
+        lng: stop.lng,
+        lat: stop.lat,
       };
     },
-    onsSetArrivalStop(stopInformation) {
-      console.log('end station : ', stopInformation);
+    onsSetArrivalStop(stop) {
+      console.log('arrival stop : ', stop);
       this.arrivalStop = {
-        name: stopInformation.name,
-        number: stopInformation.number,
-        lng: stopInformation.lng,
-        lat: stopInformation.lat,
+        name: stop.name,
+        number: stop.number,
+        lng: stop.lng,
+        lat: stop.lat,
       };
-      console.log(this.departureStop.number, this.arrivalStop.number);
-      Axios.post('http://35.232.144.196:3000/insCustomer', {
-        uid: 'fucking 이준호',
-        departStation: this.departureStop.number,
-        departTime: 10,
-        arrivalStation: this.arrivalStop.number,
-      })
-        .then((res) => {
-          console.log(res);
-        });
     },
   },
 };
@@ -108,11 +124,10 @@ export default {
 <style scoped>
 #overlay {
   position: fixed;
-  width: 340px;
-  margin: 5% auto;
+  width: 100%;
+  margin: auto;
   left: 0;
   right: 0;
   bottom: 8px;
-  /*background-color: rgba(0, 0, 0, 0.5);*/
 }
 </style>

@@ -26,6 +26,7 @@ export default {
   data: () => ({
     map: null,
     markers: [],
+    busMarker: null,
     hasClickEvent: true,
     isClickLoading: false,
     busMarkerIcon: {
@@ -240,6 +241,7 @@ export default {
     setCustomMarker(markerPosition, purposeOfMarker) {
       if (window.naver && this.map) {
         const markerIcon = this.getCustomMarkerIcon(purposeOfMarker);
+        if (this.busMarker !== null && purposeOfMarker === 'bus') this.busMarker.setMap(null);
         const marker = new window.naver.maps.Marker({
           map: this.map,
           icon: markerIcon,
@@ -249,6 +251,7 @@ export default {
       } else {
         this.$on('mapLoaded', () => {
           const markerIcon = this.getCustomMarkerIcon(purposeOfMarker);
+          if (this.busMarker !== null && purposeOfMarker === 'bus') this.busMarker.setMap(null);
           const marker = new window.naver.maps.Marker({
             map: this.map,
             icon: markerIcon,

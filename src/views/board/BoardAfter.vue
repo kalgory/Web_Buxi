@@ -58,7 +58,7 @@ export default {
     },
   },
 
-  created() {
+  mounted() {
     if (!this.isBoardBefore) {
       // this.$router.push('/board/apply');
     }
@@ -82,7 +82,7 @@ export default {
         departureNumber: this.departureStop.number,
       })
         .then((response) => {
-          this.removeBusMarker();
+          // this.removeBusMarker(); 자동으로 지워지게 설정했으므로 함수 필요없
           this.addBusMarker(response.data.position);
           if (response.data.remainingTime < 30) {
             clearTimeout(this.timerID);
@@ -90,17 +90,18 @@ export default {
         });
     },
     addDepartureStopMarker() {
-      // 출발 정류장 마커 찍기
+      this.$refs.naver_map.setCustomMarker(this.departureStop, 'departureStop');
     },
     addArrivalStopMarker() {
-      // 도착 정류장 마커 찍기
+      this.$refs.naver_map.setCustomMarker(this.arrivalStop, 'arrivalStop');
     },
     addBusMarker(position) {
       console.log(position);
-      // 버스 정류장 마커 찍기
+      this.$refs.naver_map.setCustomMarker(position, 'bus');
     },
     removeBusMarker() {
       // 버스 정류장 마커 찍기
+    //  자동으로 지워지게 함수 설정해서 필요없
     },
   },
 };

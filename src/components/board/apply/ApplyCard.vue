@@ -49,24 +49,12 @@ export default {
     departureStop: {
       type: Object,
       required: true,
-      default: () => ({
-        name: '',
-        number: 0,
-      }),
     },
     arrivalStop: {
       type: Object,
       required: true,
-      default: () => ({
-        name: '',
-        number: 0,
-      }),
     },
   },
-
-  data: () => ({
-    waitingTime: 0,
-  }),
 
   computed: {
     isValid() {

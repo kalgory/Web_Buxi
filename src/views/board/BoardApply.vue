@@ -61,10 +61,14 @@ export default {
     departureStop: {
       name: '',
       number: 0,
+      lat: 0,
+      lng: 0,
     },
     arrivalStop: {
       name: '',
       number: 0,
+      lat: 0,
+      lng: 0,
     },
   }),
 
@@ -92,22 +96,22 @@ export default {
           });
         });
     },
-    onSetDepartureStop(stopInformation) {
-      console.log('departure stop : ', stopInformation);
+    onSetDepartureStop(stop) {
+      console.log('departure stop : ', stop);
       this.departureStop = {
-        name: stopInformation.name,
-        number: stopInformation.number,
-        lng: stopInformation.lng,
-        lat: stopInformation.lat,
+        name: stop.name,
+        number: stop.number,
+        lng: stop.lng,
+        lat: stop.lat,
       };
     },
-    onsSetArrivalStop(stopInformation) {
-      console.log('arrival stop : ', stopInformation);
+    onsSetArrivalStop(stop) {
+      console.log('arrival stop : ', stop);
       this.arrivalStop = {
-        name: stopInformation.name,
-        number: stopInformation.number,
-        lng: stopInformation.lng,
-        lat: stopInformation.lat,
+        name: stop.name,
+        number: stop.number,
+        lng: stop.lng,
+        lat: stop.lat,
       };
     },
   },

@@ -25,7 +25,7 @@
           <v-row no-gutters>
             <v-col>
               <v-slider
-                v-model="waitingTime"
+                v-model="departureTimeOffset"
                 class="mt-6"
                 label="몇분뒤?"
                 thumb-label="always"
@@ -86,7 +86,7 @@ export default {
   },
 
   data: () => ({
-    waitingTime: 0,
+    departureTimeOffset: 0,
     isDialogShow: false,
   }),
 
@@ -98,10 +98,13 @@ export default {
         uid: Firebase.auth().currentUser.uid,
         departStation: this.departureStop.number,
         arrivalStation: this.arrivalStop.number,
-        departTime: this.waitingTime,
+        departTime: this.departureTimeOffset,
       })
         .then((response) => {
           console.log(response);
+          this.$store.commit('setDepartureStop', this.departureStop);
+          this.$store.commit('setArrivalStop', this.arrivalStop);
+          this.$store.commit('setIsBoardBefore', true);
           this.$router.push('/board/after');
         })
         .catch((error) => {
@@ -109,6 +112,13 @@ export default {
         })
         .finally(() => {
           this.$store.commit('setIsBoardLoading', false);
+
+          // 서버 오류로 인한 테스트 코드 이거 없애야 함
+          this.$store.commit('setDepartureStop', this.departureStop);
+          this.$store.commit('setArrivalStop', this.arrivalStop);
+          this.$store.commit('setIsBoardBefore', true);
+          this.$router.push('/board/after');
+          // 이거 없애야 함
         });
     },
   },

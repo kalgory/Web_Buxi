@@ -1,9 +1,17 @@
 export default {
   state: {
     isBoardLoading: false,
-    isBoardBefore: true,
+    isBoardBefore: false,
     isBoardOn: false,
     isBoardAfter: false,
+    bus: {
+    },
+    departureStop: {
+      name: 'departure',
+    },
+    arrivalStop: {
+      name: 'arrival',
+    },
   },
 
   getters: {
@@ -19,6 +27,12 @@ export default {
     getIsBoardAfter(state) {
       return state.isBoardAfter;
     },
+    getDepartureStop(state) {
+      return state.departureStop;
+    },
+    getArrivalStop(state) {
+      return state.arrivalStop;
+    },
   },
 
   mutations: {
@@ -33,6 +47,12 @@ export default {
     },
     setIsBoardAfter(state, value) {
       state.isBoardAfter = value;
+    },
+    setDepartureStop(state, value) {
+      state.departureStop = value;
+    },
+    setArrivalStop(state, value) {
+      state.arrivalStop = value;
     },
   },
 };

@@ -19,8 +19,8 @@
     <after-card
       id="overlay"
       class="mb-6"
-      :arrival-stop="arrivalStop"
       :departure-stop="departureStop"
+      :remaining-time="remainingTime"
     />
   </v-container>
 </template>
@@ -39,23 +39,26 @@ export default {
   },
 
   data: () => ({
-    departureStop: {
-      name: '',
-      number: 0,
-      position: {
-        lat: 0,
-        lng: 0,
-      },
-    },
-    arrivalStop: {
-      name: '',
-      number: 0,
-      position: {
-        lat: 0,
-        lng: 0,
-      },
-    },
+    remainingTime: 0,
   }),
+
+  computed: {
+    departureStop() {
+      return this.$store.getters.getDepartureStop;
+    },
+    arrivalStop() {
+      return this.$store.getters.getArrivalStop;
+    },
+    isBoardBefore() {
+      return this.$store.getters.getIsBoardBefore;
+    },
+  },
+
+  created() {
+    if (!this.isBoardBefore) {
+      // this.$router.push('/board/apply');
+    }
+  },
 
 };
 </script>

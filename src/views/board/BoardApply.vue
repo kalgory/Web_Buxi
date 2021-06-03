@@ -105,6 +105,7 @@ export default {
     },
     onDragend(position) {
       this.getStations(position);
+      this.$refs.naver_map.setCustomMarker(position, 'bus');
     },
     onSetDepartureStop(stop) {
       this.departureStop = {

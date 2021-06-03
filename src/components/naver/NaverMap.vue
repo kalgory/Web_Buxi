@@ -1,5 +1,5 @@
 <template>
-  <div id="map" />
+  <div id="map"/>
 </template>
 
 <script>
@@ -11,7 +11,7 @@ export default {
     zoom: {
       type: Number,
       required: false,
-      default: 16,
+      default: 18,
     },
     centerPosition: {
       type: Object,
@@ -226,19 +226,21 @@ export default {
         });
       }
     },
-    getRange() {
+    getRadius() {
       const mapZoomLevel = this.map.getZoom();
       switch (mapZoomLevel) {
         case 21:
-          return 5;
+          return 50;
         case 20:
-          return 10;
+          return 70;
         case 19:
-          return 10;
+          return 130;
         case 18:
-          return 10;
+          return 190;
         case 17:
-          return 10;
+          return 300;
+        case 16:
+          return 500;
         default:
           break;
       }

@@ -58,7 +58,7 @@ export default {
   },
 
   data: () => ({
-    isLoading: true,
+    isLoading: false,
     departureStop: {
       name: '',
       number: 0,
@@ -84,21 +84,24 @@ export default {
   },
 
   created() {
-    this.getCurrentPosition();
+    // this.getCurrentPosition();
   },
 
   methods: {
     getStations(position) {
-      Axios.post(`${this.$apiURI}/getStations`, {
-        lng: position.lng,
-        lat: position.lat,
-        radius: 200,
-      })
-        .then((response) => {
-          response.data.stations.forEach((station) => {
-            this.$refs.naver_map.setMarker(station);
+      const radius = this.$refs.naver_map.getRadius();
+      if (radius != null) {
+        Axios.post(`${this.$apiURI}/getStations`, {
+          lng: position.lng,
+          lat: position.lat,
+          radius,
+        })
+          .then((response) => {
+            response.data.stations.forEach((station) => {
+              this.$refs.naver_map.setMarker(station);
+            });
           });
-        });
+      }
     },
     onDragend(position) {
       this.getStations(position);

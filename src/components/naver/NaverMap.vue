@@ -15,16 +15,7 @@ export default {
     },
     centerPosition: {
       type: Object,
-      required: false,
-      default: () => ({
-        lat: 37.54093868,
-        lng: 127.0673386,
-      }),
-    },
-    isRequestCurrentPosition: {
-      type: Boolean,
-      required: false,
-      default: false,
+      required: true,
     },
   },
 
@@ -72,8 +63,10 @@ export default {
     },
   }),
 
-  created() {
-    if (this.isRequestCurrentPosition) this.getCurrentPosition();
+  watch: {
+    centerPosition(position) {
+      this.map.setCenter(position);
+    },
   },
 
   mounted() {
@@ -96,7 +89,6 @@ export default {
       script.onload = () => this.initMap();
       document.body.appendChild(script);
     },
-
     initMap() {
       const container = document.getElementById('map');
       this.map = new naver.maps.Map(container, {
@@ -113,7 +105,6 @@ export default {
       this.arrivalStopMarkerIcon.anchor = new naver.maps.Point(33.4, 46);
       this.busMarkerIcon.anchor = new naver.maps.Point(13.2, 18);
     },
-
     addDragendEventListener() {
       window.naver.maps.Event.addListener(this.map, 'dragend', () => {
         this.$emit('dragend', {
@@ -122,7 +113,6 @@ export default {
         });
       });
     },
-
     addClickMapEventListener() {
       window.naver.maps.Event.addListener(this.map, 'click', (eventArgument) => {
         if (this.hasClickEvent) {
@@ -134,7 +124,6 @@ export default {
         }
       });
     },
-
     addClickMarkerEventListener(marker, stationInformation) {
       const contentString = [
         '<div class="iw_inner" style="width: 200px; height: 80px; border-radius: 20px 20px 20px 20px;; background-color: #286955">',
@@ -170,7 +159,6 @@ export default {
         }
       });
     },
-
     setHasClickEvent() {
       if (!this.isClickLoading) {
         this.hasClickEvent = true;
@@ -180,7 +168,6 @@ export default {
         });
       }
     },
-
     addMarker(stationInformation) {
       const marker = new window.naver.maps.Marker({
         map: this.map,
@@ -191,12 +178,10 @@ export default {
       this.markers.push(marker);
       this.addClickMarkerEventListener(marker, stationInformation);
     },
-
     setMarker(stationInformation) {
       // eslint-disable-next-line no-unused-expressions
       window.naver ? this.addMarker(stationInformation) : this.$on('mapLoaded', () => this.addMarker(stationInformation));
     },
-
     removeMarkers() {
       this.markers.forEach((marker) => {
         marker.setMap(null);
@@ -204,7 +189,6 @@ export default {
       this.markers = null;
       this.setHasClickEvent();
     },
-
     clickSelectStationButton(selectOptionString, stationInformation) {
       const object = JSON.parse(decodeURIComponent(stationInformation));
       if (selectOptionString === 'Departure') {
@@ -213,44 +197,12 @@ export default {
         this.$emit('setArrivalStop', object);
       }
     },
-
-    getCurrentPosition() {
-      if (navigator.geolocation) { // GPS를 지원하면
-        navigator.geolocation.getCurrentPosition((position) => {
-          if (this.map && window.naver) {
-            this.map.setCenter(new naver.maps.LatLng(
-              position.coords.latitude,
-              position.coords.longitude,
-            ));
-          } else {
-            this.$on('mapLoaded', () => {
-              this.map.setCenter(new naver.maps.LatLng(
-                position.coords.latitude,
-                position.coords.longitude,
-              ));
-            });
-          }
-          this.$emit('finishedGetCurrentPosition');
-        }, (error) => {
-          console.error(error);
-        }, {
-          enableHighAccuracy: false,
-          maximumAge: 0,
-          timeout: Infinity,
-        });
-      } else {
-        // eslint-disable-next-line no-alert
-        alert('GPS를 지원하지 않습니다');
-      }
-    },
-
     getCustomMarkerIcon(purposeOfMarker) {
       if (purposeOfMarker === 'bus') return this.busMarkerIcon;
       if (purposeOfMarker === 'departureStop') return this.departureStopMarkerIcon;
       if (purposeOfMarker === 'arrivalStop') return this.arrivalStopMarkerIcon;
       return null;
     },
-
     setCustomMarker(markerPosition, purposeOfMarker) {
       if (window.naver && this.map) {
         const markerIcon = this.getCustomMarkerIcon(purposeOfMarker);
@@ -274,7 +226,6 @@ export default {
         });
       }
     },
-
     getRange() {
       const mapZoomLevel = this.map.getZoom();
       switch (mapZoomLevel) {

@@ -13,9 +13,8 @@
         <naver-map
           ref="naver_map"
           class="fill-height"
-          :is-request-current-position="true"
+          :center-position="currentPosition"
           @dragend="onDragend"
-          @finishedGetCurrentPosition="onFinishedGetCurrentPosition"
           @setDepartureStop="onSetDepartureStop"
           @setArrivalStop="onsSetArrivalStop"
         />
@@ -72,6 +71,10 @@ export default {
       lat: 0,
       lng: 0,
     },
+    currentPosition: {
+      lat: 37.54093868,
+      lng: 127.0673386,
+    },
   }),
 
   computed: {
@@ -80,18 +83,25 @@ export default {
     },
   },
 
+  created() {
+    this.getCurrentPosition();
+  },
+
   methods: {
-    onDragend(position) {
+    getStations(position) {
       Axios.post(`${this.$apiURI}/getStations`, {
         lng: position.lng,
         lat: position.lat,
-        range: 200,
+        radius: 200,
       })
         .then((response) => {
           response.data.stations.forEach((station) => {
             this.$refs.naver_map.setMarker(station);
           });
         });
+    },
+    onDragend(position) {
+      this.getStations(position);
     },
     onSetDepartureStop(stop) {
       console.log('departure stop : ', stop);
@@ -111,8 +121,23 @@ export default {
         lat: stop.lat,
       };
     },
-    onFinishedGetCurrentPosition() {
-      this.isLoading = false;
+    getCurrentPosition() {
+      if (navigator.geolocation) { // GPS를 지원하면
+        navigator.geolocation.getCurrentPosition((position) => {
+          this.isLoading = false;
+          this.currentPosition = position;
+          this.getStations(position);
+        }, (error) => {
+          console.error(error);
+        }, {
+          enableHighAccuracy: false,
+          maximumAge: 0,
+          timeout: Infinity,
+        });
+      } else {
+        // eslint-disable-next-line no-alert
+        alert('GPS를 지원하지 않습니다');
+      }
     },
   },
 };

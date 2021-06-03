@@ -6,8 +6,10 @@ export default {
     isBoardAfter: false,
     bus: {
       ID: 0,
-      lat: 0,
-      lng: 0,
+      position: {
+        lat: 0,
+        lng: 0,
+      },
     },
     departureStop: {
       name: 'departure',

@@ -16,7 +16,7 @@
         />
       </v-col>
     </v-row>
-    <after-card
+    <before-card
       id="overlay"
       class="mb-6"
       :departure-stop="departureStop"
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import AfterCard from '@/components/board/after/AfterCard.vue';
+import BeforeCard from '@/components/board/before/BeforeCard.vue';
 import NaverMap from '@/components/naver/NaverMap.vue';
 import Axios from 'axios';
 
@@ -35,7 +35,7 @@ export default {
 
   components: {
     NaverMap,
-    AfterCard,
+    BeforeCard,
   },
 
   data: () => ({

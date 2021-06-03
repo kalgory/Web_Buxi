@@ -20,7 +20,7 @@
             </v-btn>
           </v-col>
           <v-col offset="1">
-            <after-dialog />
+            <before-dialog />
           </v-col>
         </v-row>
       </v-container>
@@ -29,13 +29,13 @@
 </template>
 
 <script>
-import AfterDialog from '@/components/board/after/AfterDialog.vue';
+import BeforeDialog from '@/components/board/before/BeforeDialog.vue';
 
 export default {
-  name: 'AfterCard',
+  name: 'BeforeCard',
 
   components: {
-    AfterDialog,
+    BeforeDialog,
   },
 
   props: {

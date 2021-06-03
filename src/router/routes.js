@@ -63,7 +63,7 @@ export default [
         },
       },
       {
-        name: 'board after',
+        name: 'board before',
         path: 'after',
         component: BoardAfter,
         meta: {

@@ -105,7 +105,7 @@ export default {
           this.$store.commit('setDepartureStop', this.departureStop);
           this.$store.commit('setArrivalStop', this.arrivalStop);
           this.$store.commit('setIsBoardBefore', true);
-          this.$router.push('/board/after');
+          this.$router.push('/board/before');
         })
         .catch((error) => {
           console.error(error);
@@ -117,7 +117,7 @@ export default {
           this.$store.commit('setDepartureStop', this.departureStop);
           this.$store.commit('setArrivalStop', this.arrivalStop);
           this.$store.commit('setIsBoardBefore', true);
-          this.$router.push('/board/after');
+          this.$router.push('/board/before');
           // 이거 없애야 함
         });
     },

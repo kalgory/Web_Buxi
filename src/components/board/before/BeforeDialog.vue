@@ -40,7 +40,7 @@
 
 <script>
 export default {
-  name: 'AfterDialog',
+  name: 'BeforeDialog',
 
   data: () => ({
     isDialogShow: false,

@@ -85,7 +85,6 @@ export default {
       this.$refs.naver_map.setHasClickEvent();
     },
     onDragend(position) {
-      console.log(position);
       Axios.post(`${this.$apiURI}/getStations`, {
         lng: position.lng,
         lat: position.lat,

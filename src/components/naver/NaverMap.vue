@@ -11,7 +11,7 @@ export default {
     zoom: {
       type: Number,
       required: false,
-      default: 16,
+      default: 21,
     },
     centerPosition: {
       type: Object,
@@ -20,6 +20,11 @@ export default {
         lat: 37.54093868,
         lng: 127.0673386,
       }),
+    },
+    isRequestCurrentPosition: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
 
@@ -68,7 +73,7 @@ export default {
   }),
 
   created() {
-    this.getCurrentPosition();
+    if (this.isRequestCurrentPosition) this.getCurrentPosition();
   },
 
   mounted() {
@@ -132,7 +137,7 @@ export default {
 
     addClickMarkerEventListener(marker, stationInformation) {
       const contentString = [
-        '<div class="iw_inner" style="width: 200px">',
+        '<div class="iw_inner" style="width: 200px; height: 80px; border-radius: 20px 20px 20px 20px;; background-color: #286955">',
         '   <h3 class="text-center">', stationInformation.name, '</h1>',
         '   <p class="center">',
         `       <button class="button"
@@ -149,6 +154,13 @@ export default {
         '</div>'].join('');
       const infoWindow = new naver.maps.InfoWindow({
         content: contentString,
+        backgroundColor: 'transparent',
+        maxWidth: 200,
+        maxHeight: 'auto',
+        borderColor: 'transparent',
+        anchorSize: new naver.maps.Size(10, 10),
+        anchorSkew: true,
+        anchorColor: '#286955',
       });
       window.naver.maps.Event.addListener(marker, 'click', () => {
         if (infoWindow.getMap()) {
@@ -260,6 +272,21 @@ export default {
           marker.setMap(this.map);
         });
       }
+    },
+
+    getRange() {
+      const mapZoomLevel = this.map.getZoom();
+      switch (mapZoomLevel) {
+        case 21:
+          return 5;
+        case 20:
+          return 10;
+        case 19:
+          return 10;
+        default:
+          break;
+      }
+      return null;
     },
   },
 };

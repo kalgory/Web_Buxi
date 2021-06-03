@@ -60,7 +60,6 @@ export default {
 
   computed: {
     isValid() {
-      console.log(this.departureStop.name.length, this.arrivalStop.name.length);
       return this.departureStop.name.length > 0 && this.arrivalStop.name.length > 0;
     },
   },

@@ -126,7 +126,7 @@ export default {
     },
     addClickMarkerEventListener(marker, stationInformation) {
       const contentString = [
-        '<div class="iw_inner" style="width: 200px; height: 80px; border-radius: 20px 20px 20px 20px;; background-color: #286955">',
+        '<div class="iw_inner" style="height: 80px; border-radius: 20px 20px 20px 20px;; background-color: #286955">',
         '   <h3 class="text-center">', stationInformation.name, '</h1>',
         '   <p class="center">',
         `       <button class="button"

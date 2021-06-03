@@ -58,7 +58,7 @@ export default {
   },
 
   data: () => ({
-    isLoading: false,
+    isLoading: true,
     departureStop: {
       name: '',
       number: 0,
@@ -84,7 +84,7 @@ export default {
   },
 
   created() {
-    // this.getCurrentPosition();
+    this.getCurrentPosition();
   },
 
   methods: {
@@ -107,7 +107,6 @@ export default {
       this.getStations(position);
     },
     onSetDepartureStop(stop) {
-      console.log('departure stop : ', stop);
       this.departureStop = {
         name: stop.name,
         number: stop.number,
@@ -116,7 +115,6 @@ export default {
       };
     },
     onsSetArrivalStop(stop) {
-      console.log('arrival stop : ', stop);
       this.arrivalStop = {
         name: stop.name,
         number: stop.number,

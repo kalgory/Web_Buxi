@@ -60,7 +60,7 @@ export default {
   },
 
   data: () => ({
-    isLoading: false,
+    isLoading: true,
     departureStop: {
       name: '',
       number: 0,
@@ -82,10 +82,6 @@ export default {
   },
 
   methods: {
-    onClick(position) {
-      console.log('click', position);
-      this.$refs.naver_map.setHasClickEvent();
-    },
     onDragend(position) {
       Axios.post(`${this.$apiURI}/getStations`, {
         lng: position.lng,
@@ -117,7 +113,7 @@ export default {
       };
     },
     onFinishedGetCurrentPosition() {
-      console.log('finished get current position');
+      this.isLoading = false;
     },
   },
 };

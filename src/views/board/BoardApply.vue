@@ -13,8 +13,10 @@
         <naver-map
           ref="naver_map"
           class="fill-height"
+          :is-request-current-position="true"
           @click="onClick"
           @dragend="onDragend"
+          @finishedGetCurrentPosition="onFinishedGetCurrentPosition"
           @setDepartureStop="onSetDepartureStop"
           @setArrivalStop="onsSetArrivalStop"
         />
@@ -113,6 +115,9 @@ export default {
         lng: stop.lng,
         lat: stop.lat,
       };
+    },
+    onFinishedGetCurrentPosition() {
+      console.log('finished get current position');
     },
   },
 };

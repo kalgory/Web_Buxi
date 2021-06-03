@@ -230,6 +230,7 @@ export default {
               ));
             });
           }
+          this.$emit('finishedGetCurrentPosition');
         }, (error) => {
           console.error(error);
         }, {
@@ -282,6 +283,10 @@ export default {
         case 20:
           return 10;
         case 19:
+          return 10;
+        case 18:
+          return 10;
+        case 17:
           return 10;
         default:
           break;

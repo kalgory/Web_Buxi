@@ -14,6 +14,7 @@
           ref="naver_map"
           class="fill-height"
           :center-position="bus.position"
+          :zoom="14"
         />
       </v-col>
     </v-row>
@@ -21,7 +22,7 @@
       id="overlay"
       class="mb-6"
       :departure-stop="departureStop"
-      :remaining-time="remainingTime"
+      :remaining-time="bus.remainingTime"
     />
   </v-container>
 </template>
@@ -40,7 +41,6 @@ export default {
   },
 
   data: () => ({
-    remainingTime: 0,
     timerID: null,
   }),
 
@@ -64,7 +64,7 @@ export default {
       this.$router.push('/board/apply');
     }
     // 1. 컴포넌트 create 시 위치 받아오기
-    this.getBusPosition();
+    // this.getBusPosition();
     // 버스 포지션으로 맵 위치 수정
     // 2. timer 시작
     // this.timerID = setInterval(() => { this.getBusPosition(); }, 3000);
@@ -79,8 +79,8 @@ export default {
   methods: {
     getBusPosition() {
       Axios.post(`${this.$apiURI}/getBusPosition`, {
-        ID: this.bus.ID,
-        departureStopNumber: this.departureStop.number,
+        busID: this.bus.ID,
+        stopNumber: this.departureStop.number,
       })
         .then((response) => {
           this.$refs.naver_map.setCustomMarker(response.data.position, 'bus');

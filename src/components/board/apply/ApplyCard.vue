@@ -11,7 +11,6 @@
               :value="departureStop.name"
               placeholder="출발 정류장"
               readonly
-              clearable
             />
           </v-col>
           <v-col cols="5">
@@ -19,7 +18,6 @@
               :value="arrivalStop.name"
               placeholder="도착 정류장"
               readonly
-              clearable
             />
           </v-col>
         </v-row>

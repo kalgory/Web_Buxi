@@ -54,6 +54,7 @@ export default {
       this.$store.commit('setIsBoardBefore', false);
       this.$store.commit('setDepartureStop', {});
       this.$store.commit('setArrivalStop', {});
+      this.$store.commit('setBus', {});
       this.$router.push('/board/apply');
     },
     convertSecondToMinute(second) {

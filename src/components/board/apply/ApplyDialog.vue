@@ -25,7 +25,7 @@
           <v-row no-gutters>
             <v-col>
               <v-slider
-                v-model="departureTimeOffset"
+                v-model="departureTimeOffsetMinute"
                 class="mt-6"
                 label="몇분뒤?"
                 thumb-label="always"
@@ -86,9 +86,15 @@ export default {
   },
 
   data: () => ({
-    departureTimeOffset: 0,
+    departureTimeOffsetMinute: 0,
     isDialogShow: false,
   }),
+
+  computed: {
+    departureTimeOffsetSecond() {
+      return this.departureTimeOffsetMinute * 60;
+    },
+  },
 
   methods: {
     submit() {
@@ -96,12 +102,13 @@ export default {
       this.isDialogShow = false;
       Axios.post(`${this.$apiURI}/match`, {
         uid: Firebase.auth().currentUser.uid,
-        departStation: this.departureStop.number,
-        arrivalStation: this.arrivalStop.number,
-        departTime: this.departureTimeOffset,
+        departureStop: this.departureStop.number,
+        arrivalStop: this.arrivalStop.number,
+        departureTimeOffset: this.departureTimeOffsetSecond,
       })
         .then((response) => {
           console.log(response);
+          this.$store.commit('setBus', response.data.bus);
           this.$store.commit('setDepartureStop', this.departureStop);
           this.$store.commit('setArrivalStop', this.arrivalStop);
           this.$store.commit('setIsBoardBefore', true);
@@ -112,13 +119,6 @@ export default {
         })
         .finally(() => {
           this.$store.commit('setIsBoardLoading', false);
-
-          // 서버 오류로 인한 테스트 코드 이거 없애야 함
-          this.$store.commit('setDepartureStop', this.departureStop);
-          this.$store.commit('setArrivalStop', this.arrivalStop);
-          this.$store.commit('setIsBoardBefore', true);
-          this.$router.push('/board/before');
-          // 이거 없애야 함
         });
     },
   },

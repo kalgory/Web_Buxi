@@ -82,7 +82,7 @@ export default {
         departureNumber: this.departureStop.number,
       })
         .then((response) => {
-          this.addBusMarker(response.data.position);
+          this.$refs.naver_map.setCustomMarker(response.data.position, 'bus');
           if (response.data.remainingTime < 30) {
             clearTimeout(this.timerID);
           }

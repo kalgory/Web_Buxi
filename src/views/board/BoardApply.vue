@@ -125,7 +125,11 @@ export default {
       if (navigator.geolocation) { // GPS를 지원하면
         navigator.geolocation.getCurrentPosition((position) => {
           this.isLoading = false;
-          this.currentPosition = position;
+          this.currentPosition = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          console.log(this.currentPosition);
           this.getStations(position);
         }, (error) => {
           console.error(error);

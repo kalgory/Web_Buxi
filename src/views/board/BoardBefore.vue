@@ -60,7 +60,7 @@ export default {
 
   mounted() {
     if (!this.isBoardBefore) {
-      // this.$router.push('/board/apply');
+      this.$router.push('/board/apply');
     }
     // 1. 컴포넌트 create 시 위치 받아오기
     // this.getBusPosition();
@@ -77,8 +77,8 @@ export default {
 
   methods: {
     getBusPosition() {
-      Axios.post(`${this.$apiURI}/getStations`, {
-        busID: this.bus.ID,
+      Axios.post(`${this.$apiURI}/getBusPosition`, {
+        ID: this.bus.ID,
         departureNumber: this.departureStop.number,
       })
         .then((response) => {

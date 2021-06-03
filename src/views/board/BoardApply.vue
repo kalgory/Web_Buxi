@@ -27,7 +27,7 @@
       :departure-stop="departureStop"
     />
     <v-container
-      v-if="isBoardLoading"
+      v-if="isBoardLoading || isLoading"
       id="overlay"
       fill-height
     >
@@ -58,6 +58,7 @@ export default {
   },
 
   data: () => ({
+    isLoading: false,
     departureStop: {
       name: '',
       number: 0,

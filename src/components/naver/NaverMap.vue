@@ -126,16 +126,18 @@ export default {
     },
     addClickMarkerEventListener(marker, stationInformation) {
       const contentString = [
-        '<div class="iw_inner" style="height: 80px; border-radius: 20px 20px 20px 20px;; background-color: #286955">',
+        '<div class="iw_inner" style="width: 240px;height: 80px; border-radius: 10px 10px 10px 10px; background-color: #ffffff; padding-top: 10px; border: 3px solid #286955">',
         '   <h3 class="text-center">', stationInformation.name, '</h1>',
-        '   <p class="center">',
+        '   <p class="center" style="padding-top: 5px">',
         `       <button class="button"
                         onclick="clickSelectStationButton('Departure', '${encodeURIComponent(JSON.stringify(stationInformation))}')"
+                        style="background-color: black; margin-right: 3px"
                         >
                         출발지 선택
                 </button>`,
         `       <button class="button"
                         onclick="clickSelectStationButton('Arrival', '${encodeURIComponent(JSON.stringify(stationInformation))}')"
+                        style="background-color: red; margin-left: 3px"
                         >
                         도착지 선택
                 </button>`,
@@ -144,12 +146,12 @@ export default {
       const infoWindow = new naver.maps.InfoWindow({
         content: contentString,
         backgroundColor: 'transparent',
-        maxWidth: 200,
+        maxWidth: 240,
         maxHeight: 'auto',
         borderColor: 'transparent',
-        anchorSize: new naver.maps.Size(10, 10),
+        anchorSize: new naver.maps.Size(20, 35),
         anchorSkew: true,
-        anchorColor: '#286955',
+        anchorColor: 'white',
       });
       window.naver.maps.Event.addListener(marker, 'click', () => {
         if (infoWindow.getMap()) {
@@ -157,6 +159,9 @@ export default {
         } else {
           infoWindow.open(this.map, marker);
         }
+      });
+      window.naver.maps.Event.addListener(this.map, 'click', () => {
+        infoWindow.close();
       });
     },
     setHasClickEvent() {
@@ -257,10 +262,12 @@ export default {
 
 <style>
 .button {
-  width: 80px;
+  width: 90px;
   height: 30px;
-  background-color: #fff;
-  border: 3px solid #ebebeb;
+  color: white;
+  border-radius: 12px;
+  border: 2px solid #ebebeb;
+  z-index: 1;
 }
 
 .center {

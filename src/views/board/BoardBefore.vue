@@ -14,7 +14,7 @@
           ref="naver_map"
           class="fill-height"
           :center-position="bus.position"
-          :zoom="14"
+          :zoom="13"
         />
       </v-col>
     </v-row>
@@ -59,18 +59,20 @@ export default {
     },
   },
 
-  mounted() {
+  created() {
     if (!this.isBoardBefore) {
       this.$router.push('/board/apply');
     }
-    // 1. 컴포넌트 create 시 위치 받아오기
-    // this.getBusPosition();
-    // 버스 포지션으로 맵 위치 수정
-    // 2. timer 시작
-    // this.timerID = setInterval(() => { this.getBusPosition(); }, 3000);
-    this.addBusMarker(this.bus.position);
-    this.addDepartureStopMarker();
-    this.addArrivalStopMarker();
+  },
+
+  mounted() {
+    if (this.isBoardBefore) {
+      this.getBusPosition();
+      // this.timerID = setInterval(() => { this.getBusPosition(); }, 1000);
+      this.addBusMarker(this.bus.position);
+      this.addDepartureStopMarker();
+      this.addArrivalStopMarker();
+    }
   },
 
   destroyed() {
@@ -84,6 +86,7 @@ export default {
         stopNumber: this.departureStop.number,
       })
         .then((response) => {
+          console.log(response);
           this.$refs.naver_map.setCustomMarker(response.data.position, 'bus');
           if (response.data.remainingTime < 30) {
             clearTimeout(this.timerID);

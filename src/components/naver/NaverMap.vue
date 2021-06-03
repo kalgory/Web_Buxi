@@ -11,7 +11,7 @@ export default {
     zoom: {
       type: Number,
       required: false,
-      default: 21,
+      default: 16,
     },
     centerPosition: {
       type: Object,

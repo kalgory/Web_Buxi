@@ -14,7 +14,6 @@
           ref="naver_map"
           class="fill-height"
           :is-request-current-position="true"
-          @click="onClick"
           @dragend="onDragend"
           @finishedGetCurrentPosition="onFinishedGetCurrentPosition"
           @setDepartureStop="onSetDepartureStop"

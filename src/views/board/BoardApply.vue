@@ -123,15 +123,14 @@ export default {
       };
     },
     getCurrentPosition() {
-      if (navigator.geolocation) { // GPS를 지원하면
+      if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
-          this.isLoading = false;
           this.currentPosition = {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           };
-          console.log(this.currentPosition);
-          this.getStations(position);
+          this.isLoading = false;
+          this.getStations(this.currentPosition);
         }, (error) => {
           console.error(error);
         }, {
@@ -141,7 +140,7 @@ export default {
         });
       } else {
         // eslint-disable-next-line no-alert
-        alert('GPS를 지원하지 않습니다');
+        this.isLoading = false;
       }
     },
   },

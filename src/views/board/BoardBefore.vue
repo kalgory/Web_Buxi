@@ -68,6 +68,7 @@ export default {
     // 버스 포지션으로 맵 위치 수정
     // 2. timer 시작
     // this.timerID = setInterval(() => { this.getBusPosition(); }, 3000);
+    this.addBusMarker(this.bus.position);
     this.addDepartureStopMarker();
     this.addArrivalStopMarker();
   },

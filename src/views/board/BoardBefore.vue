@@ -13,6 +13,7 @@
         <naver-map
           ref="naver_map"
           class="fill-height"
+          :center-position="bus.position"
         />
       </v-col>
     </v-row>
@@ -63,7 +64,7 @@ export default {
       this.$router.push('/board/apply');
     }
     // 1. 컴포넌트 create 시 위치 받아오기
-    // this.getBusPosition();
+    this.getBusPosition();
     // 버스 포지션으로 맵 위치 수정
     // 2. timer 시작
     // this.timerID = setInterval(() => { this.getBusPosition(); }, 3000);
@@ -79,7 +80,7 @@ export default {
     getBusPosition() {
       Axios.post(`${this.$apiURI}/getBusPosition`, {
         ID: this.bus.ID,
-        departureNumber: this.departureStop.number,
+        departureStopNumber: this.departureStop.number,
       })
         .then((response) => {
           this.addBusMarker(response.data.position);

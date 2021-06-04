@@ -1,5 +1,5 @@
 <template>
-  <div id="map"/>
+  <div id="map" />
 </template>
 
 <script>
@@ -33,32 +33,34 @@ export default {
     departureStopMarkerIcon: {
       content: '<div class="container" style="'
         + 'position: absolute;'
-        + 'background-color: black;'
+        + 'background-color: white;'
         + 'line-height: 10px;'
         + 'width: 40px;'
         + 'height: 10px;'
-        + 'border-radius: 10%;'
+        + 'border-radius: 10px 10px 10px 10px;'
         + 'text-align: center;'
-        + 'color: white;'
+        + 'border: 2px solid black;'
+        + 'color: black;'
         + 'font-weight: bold;'
         + 'font-size: medium">'
         + '출발'
-        + '<div style="background-color: black; width: 2px; height: 23px; margin-left: 50%; align-content: center"></div>'
+        + '<div style="background-color: black; width: 2px; height: 10px; margin-left: 50%; margin-top: 12px; align-content: center"></div>'
         + '</div>',
     },
     arrivalStopMarkerIcon: {
       content: '<div class="container" style="position: absolute;'
-        + 'background-color: red;'
+        + 'background-color: white;'
         + 'line-height: 10px;'
         + 'width: 40px;'
         + 'height: 10px;'
-        + 'border-radius: 10%;'
+        + 'border-radius: 10px 10px 10px 10px;'
         + 'text-align: center;'
-        + 'color: white;'
+        + 'border: 2px solid #ef2c2c;'
+        + 'color: #ef2c2c;'
         + 'font-weight: bold;'
         + 'font-size: medium">'
         + '도착'
-        + '<div style="background-color: red; width: 2px; height: 23px; margin-left: 50%; align-content: center"></div>'
+        + '<div style="background-color: #ef2c2c; width: 2px; height: 10px; margin-left: 50%; margin-top: 12px; align-content: center"></div>'
         + '</div>',
     },
   }),
@@ -131,13 +133,13 @@ export default {
         '   <p class="center" style="padding-top: 5px">',
         `       <button class="button"
                         onclick="clickSelectStationButton('Departure', '${encodeURIComponent(JSON.stringify(stationInformation))}')"
-                        style="background-color: black; margin-right: 3px"
+                        style="background-color: white; margin-right: 3px; border: 2px solid black; color: black"
                         >
                         출발지 선택
                 </button>`,
         `       <button class="button"
                         onclick="clickSelectStationButton('Arrival', '${encodeURIComponent(JSON.stringify(stationInformation))}')"
-                        style="background-color: red; margin-left: 3px"
+                        style="background-color: white; margin-left: 3px; border: 2px solid #ef2c2c; color: #ef2c2c"
                         >
                         도착지 선택
                 </button>`,
@@ -264,9 +266,7 @@ export default {
 .button {
   width: 90px;
   height: 30px;
-  color: white;
   border-radius: 12px;
-  border: 2px solid #ebebeb;
   z-index: 1;
 }
 

@@ -13,6 +13,7 @@
               size="128"
               color="white"
             />
+
           </v-col>
         </v-row>
       </v-container>

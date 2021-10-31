@@ -44,5 +44,5 @@
 
 ## 성과
 <div align="center">
-    <img src="https://user-images.githubusercontent.com/74395748/139581760-c1a0226a-919e-48b2-a354-92da80180a42.jpeg">
+    <img width="500" src="https://user-images.githubusercontent.com/74395748/139581760-c1a0226a-919e-48b2-a354-92da80180a42.jpeg">
 </div>

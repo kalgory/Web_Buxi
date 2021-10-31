@@ -1,4 +1,4 @@
-# buxi-client
+# BUXI
 <div align="center">
 <img width="497" alt="Screen Shot 2021-10-31 at 4 33 04 PM" src="https://user-images.githubusercontent.com/74395748/139573141-fbfeedbf-a4b8-4b34-ba81-26860d334aeb.png">
 </div>
@@ -24,7 +24,9 @@
 [Github Server Repository](https://github.com/kalgory/Web_Buxi-Server)
 
 ## User Flow
-![Buxi](https://user-images.githubusercontent.com/64261939/119088107-1900f380-ba43-11eb-9227-2127a2985516.png)
+<div align="center">
+    <img src="https://user-images.githubusercontent.com/64261939/119088107-1900f380-ba43-11eb-9227-2127a2985516.png">
+</div>
 
 ## 시연
 <div align="center">
@@ -33,14 +35,11 @@
 
 
 
-![Screen Shot 2021-10-31 at 8 16 17 PM](https://user-images.githubusercontent.com/74395748/139580397-a6321de5-646d-4564-b498-203f0c42cbe8.png)
-
-
 ## 기대효과
 <div align="center">
     <img src="https://user-images.githubusercontent.com/74395748/139580421-52a703d0-b127-4ffc-9f58-2735c335891d.png">
 </div>
-<div>
+<div align="center">
     <img src="https://user-images.githubusercontent.com/74395748/139580397-a6321de5-646d-4564-b498-203f0c42cbe8.png">
 </div>
 

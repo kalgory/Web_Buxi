@@ -1,4 +1,3 @@
-# BUXI
 <div align="center">
 <img width="497" alt="Screen Shot 2021-10-31 at 4 33 04 PM" src="https://user-images.githubusercontent.com/74395748/139573141-fbfeedbf-a4b8-4b34-ba81-26860d334aeb.png">
 </div>

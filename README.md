@@ -19,9 +19,6 @@
 - 서울시 버스노선별 정류장별 시간대별 승하차 인원 정보
     - 기대효과 도출에 사용되는 데이터
 
-## Buxi Server
-[Github Server Repository](https://github.com/kalgory/Web_Buxi-Server)
-
 ## User Flow
 <div align="center">
     <img src="https://user-images.githubusercontent.com/64261939/119088107-1900f380-ba43-11eb-9227-2127a2985516.png">
